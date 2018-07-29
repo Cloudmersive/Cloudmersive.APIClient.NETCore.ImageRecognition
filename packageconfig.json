@@ -1,7 +1,7 @@
 ﻿{
 
-  "packageName" : "Cloudmersive.APIClient.NETCore.DocumentAndDataConvert",
+  "packageName" : "Cloudmersive.APIClient.NETCore.ImageRecognition",
   "packageVersion": "1.1.8",
   "netCoreProjectFile": "true",
-  "packageGuid": "be4bc5a5-a1f7-4174-9376-21c0bc7b2001"
+  "packageGuid": "a235fa3f-f1ba-40dc-8df2-23d9c98829b3"
 }  
