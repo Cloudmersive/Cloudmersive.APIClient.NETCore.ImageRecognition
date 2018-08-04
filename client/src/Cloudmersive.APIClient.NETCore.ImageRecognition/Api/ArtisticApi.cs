@@ -30,7 +30,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Object</returns>
         Object ArtisticPainting (string style, System.IO.Stream imageFile);
@@ -42,7 +42,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>ApiResponse of Object</returns>
         ApiResponse<Object> ArtisticPaintingWithHttpInfo (string style, System.IO.Stream imageFile);
@@ -55,7 +55,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Task of Object</returns>
         System.Threading.Tasks.Task<Object> ArtisticPaintingAsync (string style, System.IO.Stream imageFile);
@@ -67,7 +67,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> ArtisticPaintingAsyncWithHttpInfo (string style, System.IO.Stream imageFile);
@@ -175,7 +175,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Transform an image into an artistic painting automatically Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Object</returns>
         public Object ArtisticPainting (string style, System.IO.Stream imageFile)
@@ -188,7 +188,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Transform an image into an artistic painting automatically Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>ApiResponse of Object</returns>
         public ApiResponse< Object > ArtisticPaintingWithHttpInfo (string style, System.IO.Stream imageFile)
@@ -253,7 +253,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Transform an image into an artistic painting automatically Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Task of Object</returns>
         public async System.Threading.Tasks.Task<Object> ArtisticPaintingAsync (string style, System.IO.Stream imageFile)
@@ -267,7 +267,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         /// Transform an image into an artistic painting automatically Uses machine learning to automatically transform an image into an artistic painting.  Due to depth of AI processing, depending on image size this operation can take up to 20 seconds.
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a modernist\&quot; painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
+        /// <param name="style">The style of the painting to apply.  To start, try \&quot;udnie\&quot; a painting style.  Possible values are: \&quot;udnie\&quot;, \&quot;wave\&quot;, \&quot;la_muse\&quot;, \&quot;rain_princess\&quot;.</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
         /// <returns>Task of ApiResponse (Object)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> ArtisticPaintingAsyncWithHttpInfo (string style, System.IO.Stream imageFile)
