@@ -8,13 +8,13 @@
     <Authors>Cloudmersive</Authors>
     <Company>Cloudmersive</Company>
     <AssemblyTitle>Cloudmersive Image Recognition and Processing API Client</AssemblyTitle>
-    <Description>Virus Scan API lets you scan files and content for viruses and identify security issues with content.</Description>
+    <Description>Image Recognition and Processing APIs let you use Machine Learning to recognize and process images, and also perform useful image modification operations.</Description>
     <Copyright>No Copyright</Copyright>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <RootNamespace>Cloudmersive.APIClient.NETCore.ImageRecognition</RootNamespace>
-    <Version>1.2.3</Version>
+    <Version>1.2.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
