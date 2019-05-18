@@ -2,7 +2,7 @@
 
 Image Recognition and Processing APIs let you use Machine Learning to recognize and process images, and also perform useful image modification operations.
 
-This C# SDK is:
+This C# SDK is for the [Cloudmersive Image Recognition and Processing API](https://www.cloudmersive.com/image-recognition-and-processing-api):
 
 - API version: v1
 - SDK version: 1.2.6
