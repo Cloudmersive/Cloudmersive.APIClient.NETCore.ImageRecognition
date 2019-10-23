@@ -33,48 +33,24 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DetectedLicensePlate" /> class.
         /// </summary>
-        /// <param name="LocationX">LocationX.</param>
-        /// <param name="LocationY">LocationY.</param>
-        /// <param name="Width">Width.</param>
-        /// <param name="Height">Height.</param>
         /// <param name="LicensePlateTextBestMatch">Text from the license plate, highest-confidence result.</param>
         /// <param name="LicensePlateTextRunnerUp">Alternate text from the license plate, based on second-highest-confidence result.</param>
+        /// <param name="LocationX">X location of the left edge of the license plate, starting from the left edge of the photo (X &#x3D; 0).</param>
+        /// <param name="LocationY">Y location of the top edge of the license plate, starting from the top edge of the photo (Y &#x3D; 0).</param>
+        /// <param name="Width">Width of the license plate&#39;s location in pixels.</param>
+        /// <param name="Height">Height of the license plate&#39;s location in pixels.</param>
         /// <param name="LicensePlateRecognitionConfidenceLevel">Confidence score on a range of 0.0 - 1.0 of the accuracy of the detected license plate, with higher scores being better; values about 0.75 are high confidence.</param>
-        public DetectedLicensePlate(int? LocationX = default(int?), int? LocationY = default(int?), int? Width = default(int?), int? Height = default(int?), string LicensePlateTextBestMatch = default(string), string LicensePlateTextRunnerUp = default(string), double? LicensePlateRecognitionConfidenceLevel = default(double?))
+        public DetectedLicensePlate(string LicensePlateTextBestMatch = default(string), string LicensePlateTextRunnerUp = default(string), int? LocationX = default(int?), int? LocationY = default(int?), int? Width = default(int?), int? Height = default(int?), double? LicensePlateRecognitionConfidenceLevel = default(double?))
         {
+            this.LicensePlateTextBestMatch = LicensePlateTextBestMatch;
+            this.LicensePlateTextRunnerUp = LicensePlateTextRunnerUp;
             this.LocationX = LocationX;
             this.LocationY = LocationY;
             this.Width = Width;
             this.Height = Height;
-            this.LicensePlateTextBestMatch = LicensePlateTextBestMatch;
-            this.LicensePlateTextRunnerUp = LicensePlateTextRunnerUp;
             this.LicensePlateRecognitionConfidenceLevel = LicensePlateRecognitionConfidenceLevel;
         }
         
-        /// <summary>
-        /// Gets or Sets LocationX
-        /// </summary>
-        [DataMember(Name="LocationX", EmitDefaultValue=false)]
-        public int? LocationX { get; set; }
-
-        /// <summary>
-        /// Gets or Sets LocationY
-        /// </summary>
-        [DataMember(Name="LocationY", EmitDefaultValue=false)]
-        public int? LocationY { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Width
-        /// </summary>
-        [DataMember(Name="Width", EmitDefaultValue=false)]
-        public int? Width { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Height
-        /// </summary>
-        [DataMember(Name="Height", EmitDefaultValue=false)]
-        public int? Height { get; set; }
-
         /// <summary>
         /// Text from the license plate, highest-confidence result
         /// </summary>
@@ -88,6 +64,34 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// <value>Alternate text from the license plate, based on second-highest-confidence result</value>
         [DataMember(Name="LicensePlateText_RunnerUp", EmitDefaultValue=false)]
         public string LicensePlateTextRunnerUp { get; set; }
+
+        /// <summary>
+        /// X location of the left edge of the license plate, starting from the left edge of the photo (X &#x3D; 0)
+        /// </summary>
+        /// <value>X location of the left edge of the license plate, starting from the left edge of the photo (X &#x3D; 0)</value>
+        [DataMember(Name="LocationX", EmitDefaultValue=false)]
+        public int? LocationX { get; set; }
+
+        /// <summary>
+        /// Y location of the top edge of the license plate, starting from the top edge of the photo (Y &#x3D; 0)
+        /// </summary>
+        /// <value>Y location of the top edge of the license plate, starting from the top edge of the photo (Y &#x3D; 0)</value>
+        [DataMember(Name="LocationY", EmitDefaultValue=false)]
+        public int? LocationY { get; set; }
+
+        /// <summary>
+        /// Width of the license plate&#39;s location in pixels
+        /// </summary>
+        /// <value>Width of the license plate&#39;s location in pixels</value>
+        [DataMember(Name="Width", EmitDefaultValue=false)]
+        public int? Width { get; set; }
+
+        /// <summary>
+        /// Height of the license plate&#39;s location in pixels
+        /// </summary>
+        /// <value>Height of the license plate&#39;s location in pixels</value>
+        [DataMember(Name="Height", EmitDefaultValue=false)]
+        public int? Height { get; set; }
 
         /// <summary>
         /// Confidence score on a range of 0.0 - 1.0 of the accuracy of the detected license plate, with higher scores being better; values about 0.75 are high confidence
@@ -104,12 +108,12 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         {
             var sb = new StringBuilder();
             sb.Append("class DetectedLicensePlate {\n");
+            sb.Append("  LicensePlateTextBestMatch: ").Append(LicensePlateTextBestMatch).Append("\n");
+            sb.Append("  LicensePlateTextRunnerUp: ").Append(LicensePlateTextRunnerUp).Append("\n");
             sb.Append("  LocationX: ").Append(LocationX).Append("\n");
             sb.Append("  LocationY: ").Append(LocationY).Append("\n");
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
-            sb.Append("  LicensePlateTextBestMatch: ").Append(LicensePlateTextBestMatch).Append("\n");
-            sb.Append("  LicensePlateTextRunnerUp: ").Append(LicensePlateTextRunnerUp).Append("\n");
             sb.Append("  LicensePlateRecognitionConfidenceLevel: ").Append(LicensePlateRecognitionConfidenceLevel).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -146,6 +150,16 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
 
             return 
                 (
+                    this.LicensePlateTextBestMatch == input.LicensePlateTextBestMatch ||
+                    (this.LicensePlateTextBestMatch != null &&
+                    this.LicensePlateTextBestMatch.Equals(input.LicensePlateTextBestMatch))
+                ) && 
+                (
+                    this.LicensePlateTextRunnerUp == input.LicensePlateTextRunnerUp ||
+                    (this.LicensePlateTextRunnerUp != null &&
+                    this.LicensePlateTextRunnerUp.Equals(input.LicensePlateTextRunnerUp))
+                ) && 
+                (
                     this.LocationX == input.LocationX ||
                     (this.LocationX != null &&
                     this.LocationX.Equals(input.LocationX))
@@ -166,16 +180,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     this.Height.Equals(input.Height))
                 ) && 
                 (
-                    this.LicensePlateTextBestMatch == input.LicensePlateTextBestMatch ||
-                    (this.LicensePlateTextBestMatch != null &&
-                    this.LicensePlateTextBestMatch.Equals(input.LicensePlateTextBestMatch))
-                ) && 
-                (
-                    this.LicensePlateTextRunnerUp == input.LicensePlateTextRunnerUp ||
-                    (this.LicensePlateTextRunnerUp != null &&
-                    this.LicensePlateTextRunnerUp.Equals(input.LicensePlateTextRunnerUp))
-                ) && 
-                (
                     this.LicensePlateRecognitionConfidenceLevel == input.LicensePlateRecognitionConfidenceLevel ||
                     (this.LicensePlateRecognitionConfidenceLevel != null &&
                     this.LicensePlateRecognitionConfidenceLevel.Equals(input.LicensePlateRecognitionConfidenceLevel))
@@ -191,6 +195,10 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.LicensePlateTextBestMatch != null)
+                    hashCode = hashCode * 59 + this.LicensePlateTextBestMatch.GetHashCode();
+                if (this.LicensePlateTextRunnerUp != null)
+                    hashCode = hashCode * 59 + this.LicensePlateTextRunnerUp.GetHashCode();
                 if (this.LocationX != null)
                     hashCode = hashCode * 59 + this.LocationX.GetHashCode();
                 if (this.LocationY != null)
@@ -199,10 +207,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Width.GetHashCode();
                 if (this.Height != null)
                     hashCode = hashCode * 59 + this.Height.GetHashCode();
-                if (this.LicensePlateTextBestMatch != null)
-                    hashCode = hashCode * 59 + this.LicensePlateTextBestMatch.GetHashCode();
-                if (this.LicensePlateTextRunnerUp != null)
-                    hashCode = hashCode * 59 + this.LicensePlateTextRunnerUp.GetHashCode();
                 if (this.LicensePlateRecognitionConfidenceLevel != null)
                     hashCode = hashCode * 59 + this.LicensePlateRecognitionConfidenceLevel.GetHashCode();
                 return hashCode;
