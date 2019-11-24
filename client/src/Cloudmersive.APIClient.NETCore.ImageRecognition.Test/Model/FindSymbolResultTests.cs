@@ -75,6 +75,14 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Test
             // TODO unit test for the property 'Successful'
         }
         /// <summary>
+        /// Test the property 'MatchScore'
+        /// </summary>
+        [Test]
+        public void MatchScoreTest()
+        {
+            // TODO unit test for the property 'MatchScore'
+        }
+        /// <summary>
         /// Test the property 'XLeft'
         /// </summary>
         [Test]
