@@ -14,377 +14,404 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using Cloudmersive.APIClient.NETCore.ImageRecognition.Client;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IRecognizeApi : IApiAccessor
+    public interface IFilterApi : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
-        /// Describe an image in natural language
+        /// Convert image to black-and-white grayscale
         /// </summary>
         /// <remarks>
-        /// Generate an English language text description of the image as a sentence.
+        /// Remove color from the image by converting to a grayscale, black-and-white image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ImageDescriptionResponse</returns>
-        ImageDescriptionResponse RecognizeDescribe (System.IO.Stream imageFile);
-
-        /// <summary>
-        /// Describe an image in natural language
-        /// </summary>
-        /// <remarks>
-        /// Generate an English language text description of the image as a sentence.
-        /// </remarks>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ImageDescriptionResponse</returns>
-        ApiResponse<ImageDescriptionResponse> RecognizeDescribeWithHttpInfo (System.IO.Stream imageFile);
-        /// <summary>
-        /// Detect and unskew a photo of a document
-        /// </summary>
-        /// <remarks>
-        /// Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
-        /// </remarks>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>byte[]</returns>
-        byte[] RecognizeDetectAndUnskewDocument (System.IO.Stream imageFile, string postProcessingEffect = null);
+        byte[] FilterBlackAndWhite (System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect and unskew a photo of a document
+        /// Convert image to black-and-white grayscale
         /// </summary>
         /// <remarks>
-        /// Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+        /// Remove color from the image by converting to a grayscale, black-and-white image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>ApiResponse of byte[]</returns>
-        ApiResponse<byte[]> RecognizeDetectAndUnskewDocumentWithHttpInfo (System.IO.Stream imageFile, string postProcessingEffect = null);
+        ApiResponse<byte[]> FilterBlackAndWhiteWithHttpInfo (System.IO.Stream imageFile);
         /// <summary>
-        /// Detect objects, including types and locations, in an image
+        /// Despeckle (remove point noise) from the image
         /// </summary>
         /// <remarks>
-        /// Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Remove point noise / despeckle the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ObjectDetectionResult</returns>
-        ObjectDetectionResult RecognizeDetectObjects (System.IO.Stream imageFile);
+        /// <returns>byte[]</returns>
+        byte[] FilterDespeckle (System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image
+        /// Despeckle (remove point noise) from the image
         /// </summary>
         /// <remarks>
-        /// Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Remove point noise / despeckle the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ObjectDetectionResult</returns>
-        ApiResponse<ObjectDetectionResult> RecognizeDetectObjectsWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterDespeckleWithHttpInfo (System.IO.Stream imageFile);
         /// <summary>
-        /// Detect people, including locations, in an image
+        /// Detect and highlight edges in an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Perform an edge detection operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ObjectDetectionResult</returns>
-        ObjectDetectionResult RecognizeDetectPeople (System.IO.Stream imageFile);
+        /// <returns>byte[]</returns>
+        byte[] FilterEdgeDetect (int? radius, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect people, including locations, in an image
+        /// Detect and highlight edges in an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Perform an edge detection operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ObjectDetectionResult</returns>
-        ApiResponse<ObjectDetectionResult> RecognizeDetectPeopleWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterEdgeDetectWithHttpInfo (int? radius, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect fine text in a photo of a document
+        /// Emboss an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Perform an emboss operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>FineTextDetectionResult</returns>
-        FineTextDetectionResult RecognizeDetectTextFine (System.IO.Stream imageFile);
+        /// <returns>byte[]</returns>
+        byte[] FilterEmboss (int? radius, int? sigma, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect fine text in a photo of a document
+        /// Emboss an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Perform an emboss operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of FineTextDetectionResult</returns>
-        ApiResponse<FineTextDetectionResult> RecognizeDetectTextFineWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterEmbossWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect large text in a photo
+        /// Perform a guassian blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a gaussian blur on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>TextDetectionResult</returns>
-        TextDetectionResult RecognizeDetectTextLarge (System.IO.Stream imageFile);
+        /// <returns>byte[]</returns>
+        byte[] FilterGaussianBlur (int? radius, int? sigma, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect large text in a photo
+        /// Perform a guassian blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a gaussian blur on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of TextDetectionResult</returns>
-        ApiResponse<TextDetectionResult> RecognizeDetectTextLargeWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterGaussianBlurWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect vehicle license plates in an image
+        /// Perform a motion blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image at a specific angle
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>VehicleLicensePlateDetectionResult</returns>
-        VehicleLicensePlateDetectionResult RecognizeDetectVehicleLicensePlates (System.IO.Stream imageFile);
+        /// <returns>byte[]</returns>
+        byte[] FilterMotionBlur (int? radius, int? sigma, int? angle, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect vehicle license plates in an image
+        /// Perform a motion blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image at a specific angle
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of VehicleLicensePlateDetectionResult</returns>
-        ApiResponse<VehicleLicensePlateDetectionResult> RecognizeDetectVehicleLicensePlatesWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterMotionBlurWithHttpInfo (int? radius, int? sigma, int? angle, System.IO.Stream imageFile);
         /// <summary>
-        /// Find the location of a symbol in an image
+        /// Posterize the image by reducing distinct colors
         /// </summary>
         /// <remarks>
-        /// Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Reduce the unique number of colors in the image to the specified level
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>FindSymbolResult</returns>
-        FindSymbolResult RecognizeFindSymbol (System.IO.Stream inputImage, System.IO.Stream targetImage);
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Object</returns>
+        Object FilterPosterize (int? levels);
 
         /// <summary>
-        /// Find the location of a symbol in an image
+        /// Posterize the image by reducing distinct colors
         /// </summary>
         /// <remarks>
-        /// Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Reduce the unique number of colors in the image to the specified level
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>ApiResponse of FindSymbolResult</returns>
-        ApiResponse<FindSymbolResult> RecognizeFindSymbolWithHttpInfo (System.IO.Stream inputImage, System.IO.Stream targetImage);
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object> FilterPosterizeWithHttpInfo (int? levels);
+        /// <summary>
+        /// Swirl distort the image
+        /// </summary>
+        /// <remarks>
+        /// Swirl distort the image by the specified number of degrees
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>byte[]</returns>
+        byte[] FilterSwirl (int? degrees, System.IO.Stream imageFile);
+
+        /// <summary>
+        /// Swirl distort the image
+        /// </summary>
+        /// <remarks>
+        /// Swirl distort the image by the specified number of degrees
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>ApiResponse of byte[]</returns>
+        ApiResponse<byte[]> FilterSwirlWithHttpInfo (int? degrees, System.IO.Stream imageFile);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// Describe an image in natural language
+        /// Convert image to black-and-white grayscale
         /// </summary>
         /// <remarks>
-        /// Generate an English language text description of the image as a sentence.
+        /// Remove color from the image by converting to a grayscale, black-and-white image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ImageDescriptionResponse</returns>
-        System.Threading.Tasks.Task<ImageDescriptionResponse> RecognizeDescribeAsync (System.IO.Stream imageFile);
-
-        /// <summary>
-        /// Describe an image in natural language
-        /// </summary>
-        /// <remarks>
-        /// Generate an English language text description of the image as a sentence.
-        /// </remarks>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ImageDescriptionResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ImageDescriptionResponse>> RecognizeDescribeAsyncWithHttpInfo (System.IO.Stream imageFile);
-        /// <summary>
-        /// Detect and unskew a photo of a document
-        /// </summary>
-        /// <remarks>
-        /// Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
-        /// </remarks>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>Task of byte[]</returns>
-        System.Threading.Tasks.Task<byte[]> RecognizeDetectAndUnskewDocumentAsync (System.IO.Stream imageFile, string postProcessingEffect = null);
+        System.Threading.Tasks.Task<byte[]> FilterBlackAndWhiteAsync (System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect and unskew a photo of a document
+        /// Convert image to black-and-white grayscale
         /// </summary>
         /// <remarks>
-        /// Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+        /// Remove color from the image by converting to a grayscale, black-and-white image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>Task of ApiResponse (byte[])</returns>
-        System.Threading.Tasks.Task<ApiResponse<byte[]>> RecognizeDetectAndUnskewDocumentAsyncWithHttpInfo (System.IO.Stream imageFile, string postProcessingEffect = null);
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterBlackAndWhiteAsyncWithHttpInfo (System.IO.Stream imageFile);
         /// <summary>
-        /// Detect objects, including types and locations, in an image
+        /// Despeckle (remove point noise) from the image
         /// </summary>
         /// <remarks>
-        /// Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Remove point noise / despeckle the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ObjectDetectionResult</returns>
-        System.Threading.Tasks.Task<ObjectDetectionResult> RecognizeDetectObjectsAsync (System.IO.Stream imageFile);
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterDespeckleAsync (System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image
+        /// Despeckle (remove point noise) from the image
         /// </summary>
         /// <remarks>
-        /// Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Remove point noise / despeckle the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ObjectDetectionResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ObjectDetectionResult>> RecognizeDetectObjectsAsyncWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterDespeckleAsyncWithHttpInfo (System.IO.Stream imageFile);
         /// <summary>
-        /// Detect people, including locations, in an image
+        /// Detect and highlight edges in an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Perform an edge detection operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ObjectDetectionResult</returns>
-        System.Threading.Tasks.Task<ObjectDetectionResult> RecognizeDetectPeopleAsync (System.IO.Stream imageFile);
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterEdgeDetectAsync (int? radius, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect people, including locations, in an image
+        /// Detect and highlight edges in an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Perform an edge detection operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ObjectDetectionResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ObjectDetectionResult>> RecognizeDetectPeopleAsyncWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterEdgeDetectAsyncWithHttpInfo (int? radius, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect fine text in a photo of a document
+        /// Emboss an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Perform an emboss operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of FineTextDetectionResult</returns>
-        System.Threading.Tasks.Task<FineTextDetectionResult> RecognizeDetectTextFineAsync (System.IO.Stream imageFile);
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterEmbossAsync (int? radius, int? sigma, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect fine text in a photo of a document
+        /// Emboss an image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Perform an emboss operation on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (FineTextDetectionResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<FineTextDetectionResult>> RecognizeDetectTextFineAsyncWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterEmbossAsyncWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect large text in a photo
+        /// Perform a guassian blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a gaussian blur on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of TextDetectionResult</returns>
-        System.Threading.Tasks.Task<TextDetectionResult> RecognizeDetectTextLargeAsync (System.IO.Stream imageFile);
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterGaussianBlurAsync (int? radius, int? sigma, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect large text in a photo
+        /// Perform a guassian blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a gaussian blur on the input image
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (TextDetectionResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<TextDetectionResult>> RecognizeDetectTextLargeAsyncWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterGaussianBlurAsyncWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile);
         /// <summary>
-        /// Detect vehicle license plates in an image
+        /// Perform a motion blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image at a specific angle
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of VehicleLicensePlateDetectionResult</returns>
-        System.Threading.Tasks.Task<VehicleLicensePlateDetectionResult> RecognizeDetectVehicleLicensePlatesAsync (System.IO.Stream imageFile);
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterMotionBlurAsync (int? radius, int? sigma, int? angle, System.IO.Stream imageFile);
 
         /// <summary>
-        /// Detect vehicle license plates in an image
+        /// Perform a motion blur on the input image
         /// </summary>
         /// <remarks>
-        /// Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image at a specific angle
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (VehicleLicensePlateDetectionResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<VehicleLicensePlateDetectionResult>> RecognizeDetectVehicleLicensePlatesAsyncWithHttpInfo (System.IO.Stream imageFile);
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterMotionBlurAsyncWithHttpInfo (int? radius, int? sigma, int? angle, System.IO.Stream imageFile);
         /// <summary>
-        /// Find the location of a symbol in an image
+        /// Posterize the image by reducing distinct colors
         /// </summary>
         /// <remarks>
-        /// Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Reduce the unique number of colors in the image to the specified level
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>Task of FindSymbolResult</returns>
-        System.Threading.Tasks.Task<FindSymbolResult> RecognizeFindSymbolAsync (System.IO.Stream inputImage, System.IO.Stream targetImage);
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Task of Object</returns>
+        System.Threading.Tasks.Task<Object> FilterPosterizeAsync (int? levels);
 
         /// <summary>
-        /// Find the location of a symbol in an image
+        /// Posterize the image by reducing distinct colors
         /// </summary>
         /// <remarks>
-        /// Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Reduce the unique number of colors in the image to the specified level
         /// </remarks>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>Task of ApiResponse (FindSymbolResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<FindSymbolResult>> RecognizeFindSymbolAsyncWithHttpInfo (System.IO.Stream inputImage, System.IO.Stream targetImage);
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> FilterPosterizeAsyncWithHttpInfo (int? levels);
+        /// <summary>
+        /// Swirl distort the image
+        /// </summary>
+        /// <remarks>
+        /// Swirl distort the image by the specified number of degrees
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>Task of byte[]</returns>
+        System.Threading.Tasks.Task<byte[]> FilterSwirlAsync (int? degrees, System.IO.Stream imageFile);
+
+        /// <summary>
+        /// Swirl distort the image
+        /// </summary>
+        /// <remarks>
+        /// Swirl distort the image by the specified number of degrees
+        /// </remarks>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterSwirlAsyncWithHttpInfo (int? degrees, System.IO.Stream imageFile);
         #endregion Asynchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class RecognizeApi : IRecognizeApi
+    public partial class FilterApi : IFilterApi
     {
         private Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RecognizeApi"/> class.
+        /// Initializes a new instance of the <see cref="FilterApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public RecognizeApi(String basePath)
+        public FilterApi(String basePath)
         {
             this.Configuration = new Configuration { BasePath = basePath };
 
@@ -392,12 +419,12 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RecognizeApi"/> class
+        /// Initializes a new instance of the <see cref="FilterApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public RecognizeApi(Configuration configuration = null)
+        public FilterApi(Configuration configuration = null)
         {
             if (configuration == null) // use the default one in Configuration
                 this.Configuration = Configuration.Default;
@@ -471,183 +498,30 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         }
 
         /// <summary>
-        /// Describe an image in natural language Generate an English language text description of the image as a sentence.
+        /// Convert image to black-and-white grayscale Remove color from the image by converting to a grayscale, black-and-white image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ImageDescriptionResponse</returns>
-        public ImageDescriptionResponse RecognizeDescribe (System.IO.Stream imageFile)
-        {
-             ApiResponse<ImageDescriptionResponse> localVarResponse = RecognizeDescribeWithHttpInfo(imageFile);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Describe an image in natural language Generate an English language text description of the image as a sentence.
-        /// </summary>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ImageDescriptionResponse</returns>
-        public ApiResponse< ImageDescriptionResponse > RecognizeDescribeWithHttpInfo (System.IO.Stream imageFile)
-        {
-            // verify the required parameter 'imageFile' is set
-            if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDescribe");
-
-            var localVarPath = "/image/recognize/describe";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "multipart/form-data"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
-
-            // authentication (Apikey) required
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
-            {
-                localVarHeaderParams["Apikey"] = Configuration.GetApiKeyWithPrefix("Apikey");
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("RecognizeDescribe", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<ImageDescriptionResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ImageDescriptionResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ImageDescriptionResponse)));
-        }
-
-        /// <summary>
-        /// Describe an image in natural language Generate an English language text description of the image as a sentence.
-        /// </summary>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ImageDescriptionResponse</returns>
-        public async System.Threading.Tasks.Task<ImageDescriptionResponse> RecognizeDescribeAsync (System.IO.Stream imageFile)
-        {
-             ApiResponse<ImageDescriptionResponse> localVarResponse = await RecognizeDescribeAsyncWithHttpInfo(imageFile);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Describe an image in natural language Generate an English language text description of the image as a sentence.
-        /// </summary>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ImageDescriptionResponse)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ImageDescriptionResponse>> RecognizeDescribeAsyncWithHttpInfo (System.IO.Stream imageFile)
-        {
-            // verify the required parameter 'imageFile' is set
-            if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDescribe");
-
-            var localVarPath = "/image/recognize/describe";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                "multipart/form-data"
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
-
-            // authentication (Apikey) required
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
-            {
-                localVarHeaderParams["Apikey"] = Configuration.GetApiKeyWithPrefix("Apikey");
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("RecognizeDescribe", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<ImageDescriptionResponse>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ImageDescriptionResponse) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ImageDescriptionResponse)));
-        }
-
-        /// <summary>
-        /// Detect and unskew a photo of a document Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
-        /// </summary>
-        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>byte[]</returns>
-        public byte[] RecognizeDetectAndUnskewDocument (System.IO.Stream imageFile, string postProcessingEffect = null)
+        public byte[] FilterBlackAndWhite (System.IO.Stream imageFile)
         {
-             ApiResponse<byte[]> localVarResponse = RecognizeDetectAndUnskewDocumentWithHttpInfo(imageFile, postProcessingEffect);
+             ApiResponse<byte[]> localVarResponse = FilterBlackAndWhiteWithHttpInfo(imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect and unskew a photo of a document Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+        /// Convert image to black-and-white grayscale Remove color from the image by converting to a grayscale, black-and-white image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>ApiResponse of byte[]</returns>
-        public ApiResponse< byte[] > RecognizeDetectAndUnskewDocumentWithHttpInfo (System.IO.Stream imageFile, string postProcessingEffect = null)
+        public ApiResponse< byte[] > FilterBlackAndWhiteWithHttpInfo (System.IO.Stream imageFile)
         {
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectAndUnskewDocument");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterBlackAndWhite");
 
-            var localVarPath = "/image/recognize/detect-document/unskew";
+            var localVarPath = "/image/filter/black-and-white";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -663,16 +537,12 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (postProcessingEffect != null) localVarHeaderParams.Add("PostProcessingEffect", Configuration.ApiClient.ParameterToString(postProcessingEffect)); // header parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -690,7 +560,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectAndUnskewDocument", localVarResponse);
+                Exception exception = ExceptionFactory("FilterBlackAndWhite", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -700,33 +570,31 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         }
 
         /// <summary>
-        /// Detect and unskew a photo of a document Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+        /// Convert image to black-and-white grayscale Remove color from the image by converting to a grayscale, black-and-white image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>Task of byte[]</returns>
-        public async System.Threading.Tasks.Task<byte[]> RecognizeDetectAndUnskewDocumentAsync (System.IO.Stream imageFile, string postProcessingEffect = null)
+        public async System.Threading.Tasks.Task<byte[]> FilterBlackAndWhiteAsync (System.IO.Stream imageFile)
         {
-             ApiResponse<byte[]> localVarResponse = await RecognizeDetectAndUnskewDocumentAsyncWithHttpInfo(imageFile, postProcessingEffect);
+             ApiResponse<byte[]> localVarResponse = await FilterBlackAndWhiteAsyncWithHttpInfo(imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect and unskew a photo of a document Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+        /// Convert image to black-and-white grayscale Remove color from the image by converting to a grayscale, black-and-white image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <param name="postProcessingEffect">Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional)</param>
         /// <returns>Task of ApiResponse (byte[])</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> RecognizeDetectAndUnskewDocumentAsyncWithHttpInfo (System.IO.Stream imageFile, string postProcessingEffect = null)
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterBlackAndWhiteAsyncWithHttpInfo (System.IO.Stream imageFile)
         {
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectAndUnskewDocument");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterBlackAndWhite");
 
-            var localVarPath = "/image/recognize/detect-document/unskew";
+            var localVarPath = "/image/filter/black-and-white";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -742,16 +610,12 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (postProcessingEffect != null) localVarHeaderParams.Add("PostProcessingEffect", Configuration.ApiClient.ParameterToString(postProcessingEffect)); // header parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -769,7 +633,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectAndUnskewDocument", localVarResponse);
+                Exception exception = ExceptionFactory("FilterBlackAndWhite", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -779,30 +643,30 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
         }
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Despeckle (remove point noise) from the image Remove point noise / despeckle the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ObjectDetectionResult</returns>
-        public ObjectDetectionResult RecognizeDetectObjects (System.IO.Stream imageFile)
+        /// <returns>byte[]</returns>
+        public byte[] FilterDespeckle (System.IO.Stream imageFile)
         {
-             ApiResponse<ObjectDetectionResult> localVarResponse = RecognizeDetectObjectsWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = FilterDespeckleWithHttpInfo(imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Despeckle (remove point noise) from the image Remove point noise / despeckle the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ObjectDetectionResult</returns>
-        public ApiResponse< ObjectDetectionResult > RecognizeDetectObjectsWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterDespeckleWithHttpInfo (System.IO.Stream imageFile)
         {
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectObjects");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterDespeckle");
 
-            var localVarPath = "/image/recognize/detect-objects";
+            var localVarPath = "/image/filter/despeckle";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -818,10 +682,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -844,41 +705,41 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectObjects", localVarResponse);
+                Exception exception = ExceptionFactory("FilterDespeckle", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ObjectDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ObjectDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ObjectDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Despeckle (remove point noise) from the image Remove point noise / despeckle the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ObjectDetectionResult</returns>
-        public async System.Threading.Tasks.Task<ObjectDetectionResult> RecognizeDetectObjectsAsync (System.IO.Stream imageFile)
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterDespeckleAsync (System.IO.Stream imageFile)
         {
-             ApiResponse<ObjectDetectionResult> localVarResponse = await RecognizeDetectObjectsAsyncWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = await FilterDespeckleAsyncWithHttpInfo(imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect objects, including types and locations, in an image Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+        /// Despeckle (remove point noise) from the image Remove point noise / despeckle the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ObjectDetectionResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ObjectDetectionResult>> RecognizeDetectObjectsAsyncWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterDespeckleAsyncWithHttpInfo (System.IO.Stream imageFile)
         {
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectObjects");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterDespeckle");
 
-            var localVarPath = "/image/recognize/detect-objects";
+            var localVarPath = "/image/filter/despeckle";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -894,10 +755,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -920,40 +778,45 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectObjects", localVarResponse);
+                Exception exception = ExceptionFactory("FilterDespeckle", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ObjectDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ObjectDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ObjectDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect people, including locations, in an image Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Detect and highlight edges in an image Perform an edge detection operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ObjectDetectionResult</returns>
-        public ObjectDetectionResult RecognizeDetectPeople (System.IO.Stream imageFile)
+        /// <returns>byte[]</returns>
+        public byte[] FilterEdgeDetect (int? radius, System.IO.Stream imageFile)
         {
-             ApiResponse<ObjectDetectionResult> localVarResponse = RecognizeDetectPeopleWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = FilterEdgeDetectWithHttpInfo(radius, imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect people, including locations, in an image Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Detect and highlight edges in an image Perform an edge detection operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of ObjectDetectionResult</returns>
-        public ApiResponse< ObjectDetectionResult > RecognizeDetectPeopleWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterEdgeDetectWithHttpInfo (int? radius, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterEdgeDetect");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectPeople");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterEdgeDetect");
 
-            var localVarPath = "/image/recognize/detect-people";
+            var localVarPath = "/image/filter/edge-detect/{radius}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -969,15 +832,13 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -995,41 +856,46 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectPeople", localVarResponse);
+                Exception exception = ExceptionFactory("FilterEdgeDetect", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ObjectDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ObjectDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ObjectDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect people, including locations, in an image Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Detect and highlight edges in an image Perform an edge detection operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ObjectDetectionResult</returns>
-        public async System.Threading.Tasks.Task<ObjectDetectionResult> RecognizeDetectPeopleAsync (System.IO.Stream imageFile)
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterEdgeDetectAsync (int? radius, System.IO.Stream imageFile)
         {
-             ApiResponse<ObjectDetectionResult> localVarResponse = await RecognizeDetectPeopleAsyncWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = await FilterEdgeDetectAsyncWithHttpInfo(radius, imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect people, including locations, in an image Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+        /// Detect and highlight edges in an image Perform an edge detection operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the edge detection operation; a larger radius will produce a greater effect</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (ObjectDetectionResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ObjectDetectionResult>> RecognizeDetectPeopleAsyncWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterEdgeDetectAsyncWithHttpInfo (int? radius, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterEdgeDetect");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectPeople");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterEdgeDetect");
 
-            var localVarPath = "/image/recognize/detect-people";
+            var localVarPath = "/image/filter/edge-detect/{radius}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1045,15 +911,13 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1071,40 +935,50 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectPeople", localVarResponse);
+                Exception exception = ExceptionFactory("FilterEdgeDetect", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ObjectDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (ObjectDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ObjectDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect fine text in a photo of a document Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Emboss an image Perform an emboss operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>FineTextDetectionResult</returns>
-        public FineTextDetectionResult RecognizeDetectTextFine (System.IO.Stream imageFile)
+        /// <returns>byte[]</returns>
+        public byte[] FilterEmboss (int? radius, int? sigma, System.IO.Stream imageFile)
         {
-             ApiResponse<FineTextDetectionResult> localVarResponse = RecognizeDetectTextFineWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = FilterEmbossWithHttpInfo(radius, sigma, imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect fine text in a photo of a document Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Emboss an image Perform an emboss operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of FineTextDetectionResult</returns>
-        public ApiResponse< FineTextDetectionResult > RecognizeDetectTextFineWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterEmbossWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterEmboss");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterEmboss");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectTextFine");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterEmboss");
 
-            var localVarPath = "/image/recognize/detect-text/fine";
+            var localVarPath = "/image/filter/emboss/{radius}/{sigma}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1120,15 +994,14 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1146,41 +1019,51 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectTextFine", localVarResponse);
+                Exception exception = ExceptionFactory("FilterEmboss", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<FineTextDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (FineTextDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(FineTextDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect fine text in a photo of a document Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Emboss an image Perform an emboss operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of FineTextDetectionResult</returns>
-        public async System.Threading.Tasks.Task<FineTextDetectionResult> RecognizeDetectTextFineAsync (System.IO.Stream imageFile)
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterEmbossAsync (int? radius, int? sigma, System.IO.Stream imageFile)
         {
-             ApiResponse<FineTextDetectionResult> localVarResponse = await RecognizeDetectTextFineAsyncWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = await FilterEmbossAsyncWithHttpInfo(radius, sigma, imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect fine text in a photo of a document Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+        /// Emboss an image Perform an emboss operation on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the emboss operation; a larger radius will produce a greater effect</param>
+        /// <param name="sigma">Sigma, or variance, of the emboss operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (FineTextDetectionResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<FineTextDetectionResult>> RecognizeDetectTextFineAsyncWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterEmbossAsyncWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterEmboss");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterEmboss");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectTextFine");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterEmboss");
 
-            var localVarPath = "/image/recognize/detect-text/fine";
+            var localVarPath = "/image/filter/emboss/{radius}/{sigma}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1196,15 +1079,14 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1222,40 +1104,50 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectTextFine", localVarResponse);
+                Exception exception = ExceptionFactory("FilterEmboss", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<FineTextDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (FineTextDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(FineTextDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect large text in a photo Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a guassian blur on the input image Perform a gaussian blur on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>TextDetectionResult</returns>
-        public TextDetectionResult RecognizeDetectTextLarge (System.IO.Stream imageFile)
+        /// <returns>byte[]</returns>
+        public byte[] FilterGaussianBlur (int? radius, int? sigma, System.IO.Stream imageFile)
         {
-             ApiResponse<TextDetectionResult> localVarResponse = RecognizeDetectTextLargeWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = FilterGaussianBlurWithHttpInfo(radius, sigma, imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect large text in a photo Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a guassian blur on the input image Perform a gaussian blur on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of TextDetectionResult</returns>
-        public ApiResponse< TextDetectionResult > RecognizeDetectTextLargeWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterGaussianBlurWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterGaussianBlur");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterGaussianBlur");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectTextLarge");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterGaussianBlur");
 
-            var localVarPath = "/image/recognize/detect-text/large";
+            var localVarPath = "/image/filter/blur/guassian/{radius}/{sigma}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1271,15 +1163,14 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1297,41 +1188,51 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectTextLarge", localVarResponse);
+                Exception exception = ExceptionFactory("FilterGaussianBlur", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<TextDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (TextDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(TextDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect large text in a photo Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a guassian blur on the input image Perform a gaussian blur on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of TextDetectionResult</returns>
-        public async System.Threading.Tasks.Task<TextDetectionResult> RecognizeDetectTextLargeAsync (System.IO.Stream imageFile)
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterGaussianBlurAsync (int? radius, int? sigma, System.IO.Stream imageFile)
         {
-             ApiResponse<TextDetectionResult> localVarResponse = await RecognizeDetectTextLargeAsyncWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = await FilterGaussianBlurAsyncWithHttpInfo(radius, sigma, imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect large text in a photo Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+        /// Perform a guassian blur on the input image Perform a gaussian blur on the input image
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the gaussian blur operation</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (TextDetectionResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<TextDetectionResult>> RecognizeDetectTextLargeAsyncWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterGaussianBlurAsyncWithHttpInfo (int? radius, int? sigma, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterGaussianBlur");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterGaussianBlur");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectTextLarge");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterGaussianBlur");
 
-            var localVarPath = "/image/recognize/detect-text/large";
+            var localVarPath = "/image/filter/blur/guassian/{radius}/{sigma}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1347,15 +1248,14 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1373,40 +1273,55 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectTextLarge", localVarResponse);
+                Exception exception = ExceptionFactory("FilterGaussianBlur", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<TextDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (TextDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(TextDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect vehicle license plates in an image Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image Perform a motion blur on the input image at a specific angle
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>VehicleLicensePlateDetectionResult</returns>
-        public VehicleLicensePlateDetectionResult RecognizeDetectVehicleLicensePlates (System.IO.Stream imageFile)
+        /// <returns>byte[]</returns>
+        public byte[] FilterMotionBlur (int? radius, int? sigma, int? angle, System.IO.Stream imageFile)
         {
-             ApiResponse<VehicleLicensePlateDetectionResult> localVarResponse = RecognizeDetectVehicleLicensePlatesWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = FilterMotionBlurWithHttpInfo(radius, sigma, angle, imageFile);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Detect vehicle license plates in an image Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image Perform a motion blur on the input image at a specific angle
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>ApiResponse of VehicleLicensePlateDetectionResult</returns>
-        public ApiResponse< VehicleLicensePlateDetectionResult > RecognizeDetectVehicleLicensePlatesWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterMotionBlurWithHttpInfo (int? radius, int? sigma, int? angle, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterMotionBlur");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterMotionBlur");
+            // verify the required parameter 'angle' is set
+            if (angle == null)
+                throw new ApiException(400, "Missing required parameter 'angle' when calling FilterApi->FilterMotionBlur");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectVehicleLicensePlates");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterMotionBlur");
 
-            var localVarPath = "/image/recognize/detect-vehicle-license-plates";
+            var localVarPath = "/image/filter/blur/motion/{radius}/{sigma}/{angle}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1422,15 +1337,15 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
+            if (angle != null) localVarPathParams.Add("angle", Configuration.ApiClient.ParameterToString(angle)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1448,41 +1363,56 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectVehicleLicensePlates", localVarResponse);
+                Exception exception = ExceptionFactory("FilterMotionBlur", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<VehicleLicensePlateDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (VehicleLicensePlateDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(VehicleLicensePlateDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Detect vehicle license plates in an image Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image Perform a motion blur on the input image at a specific angle
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of VehicleLicensePlateDetectionResult</returns>
-        public async System.Threading.Tasks.Task<VehicleLicensePlateDetectionResult> RecognizeDetectVehicleLicensePlatesAsync (System.IO.Stream imageFile)
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterMotionBlurAsync (int? radius, int? sigma, int? angle, System.IO.Stream imageFile)
         {
-             ApiResponse<VehicleLicensePlateDetectionResult> localVarResponse = await RecognizeDetectVehicleLicensePlatesAsyncWithHttpInfo(imageFile);
+             ApiResponse<byte[]> localVarResponse = await FilterMotionBlurAsyncWithHttpInfo(radius, sigma, angle, imageFile);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Detect vehicle license plates in an image Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+        /// Perform a motion blur on the input image Perform a motion blur on the input image at a specific angle
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="radius">Radius in pixels of the blur operation; a larger radius will produce a greater blur effect</param>
+        /// <param name="sigma">Sigma, or variance, of the motion blur operation</param>
+        /// <param name="angle">Angle of the motion blur in degrees</param>
         /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
-        /// <returns>Task of ApiResponse (VehicleLicensePlateDetectionResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<VehicleLicensePlateDetectionResult>> RecognizeDetectVehicleLicensePlatesAsyncWithHttpInfo (System.IO.Stream imageFile)
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterMotionBlurAsyncWithHttpInfo (int? radius, int? sigma, int? angle, System.IO.Stream imageFile)
         {
+            // verify the required parameter 'radius' is set
+            if (radius == null)
+                throw new ApiException(400, "Missing required parameter 'radius' when calling FilterApi->FilterMotionBlur");
+            // verify the required parameter 'sigma' is set
+            if (sigma == null)
+                throw new ApiException(400, "Missing required parameter 'sigma' when calling FilterApi->FilterMotionBlur");
+            // verify the required parameter 'angle' is set
+            if (angle == null)
+                throw new ApiException(400, "Missing required parameter 'angle' when calling FilterApi->FilterMotionBlur");
             // verify the required parameter 'imageFile' is set
             if (imageFile == null)
-                throw new ApiException(400, "Missing required parameter 'imageFile' when calling RecognizeApi->RecognizeDetectVehicleLicensePlates");
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterMotionBlur");
 
-            var localVarPath = "/image/recognize/detect-vehicle-license-plates";
+            var localVarPath = "/image/filter/blur/motion/{radius}/{sigma}/{angle}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1498,15 +1428,15 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            if (radius != null) localVarPathParams.Add("radius", Configuration.ApiClient.ParameterToString(radius)); // path parameter
+            if (sigma != null) localVarPathParams.Add("sigma", Configuration.ApiClient.ParameterToString(sigma)); // path parameter
+            if (angle != null) localVarPathParams.Add("angle", Configuration.ApiClient.ParameterToString(angle)); // path parameter
             if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
 
             // authentication (Apikey) required
@@ -1524,45 +1454,40 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeDetectVehicleLicensePlates", localVarResponse);
+                Exception exception = ExceptionFactory("FilterMotionBlur", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<VehicleLicensePlateDetectionResult>(localVarStatusCode,
+            return new ApiResponse<byte[]>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (VehicleLicensePlateDetectionResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(VehicleLicensePlateDetectionResult)));
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
         /// <summary>
-        /// Find the location of a symbol in an image Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Posterize the image by reducing distinct colors Reduce the unique number of colors in the image to the specified level
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>FindSymbolResult</returns>
-        public FindSymbolResult RecognizeFindSymbol (System.IO.Stream inputImage, System.IO.Stream targetImage)
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Object</returns>
+        public Object FilterPosterize (int? levels)
         {
-             ApiResponse<FindSymbolResult> localVarResponse = RecognizeFindSymbolWithHttpInfo(inputImage, targetImage);
+             ApiResponse<Object> localVarResponse = FilterPosterizeWithHttpInfo(levels);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Find the location of a symbol in an image Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Posterize the image by reducing distinct colors Reduce the unique number of colors in the image to the specified level
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>ApiResponse of FindSymbolResult</returns>
-        public ApiResponse< FindSymbolResult > RecognizeFindSymbolWithHttpInfo (System.IO.Stream inputImage, System.IO.Stream targetImage)
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>ApiResponse of Object</returns>
+        public ApiResponse< Object > FilterPosterizeWithHttpInfo (int? levels)
         {
-            // verify the required parameter 'inputImage' is set
-            if (inputImage == null)
-                throw new ApiException(400, "Missing required parameter 'inputImage' when calling RecognizeApi->RecognizeFindSymbol");
-            // verify the required parameter 'targetImage' is set
-            if (targetImage == null)
-                throw new ApiException(400, "Missing required parameter 'targetImage' when calling RecognizeApi->RecognizeFindSymbol");
+            // verify the required parameter 'levels' is set
+            if (levels == null)
+                throw new ApiException(400, "Missing required parameter 'levels' when calling FilterApi->FilterPosterize");
 
-            var localVarPath = "/image/recognize/find/symbol";
+            var localVarPath = "/image/filter/posterize";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1572,23 +1497,18 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "multipart/form-data"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (inputImage != null) localVarFileParams.Add("inputImage", Configuration.ApiClient.ParameterToFile("inputImage", inputImage));
-            if (targetImage != null) localVarFileParams.Add("targetImage", Configuration.ApiClient.ParameterToFile("targetImage", targetImage));
+            if (levels != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "levels", levels)); // query parameter
 
             // authentication (Apikey) required
             if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
@@ -1605,46 +1525,41 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeFindSymbol", localVarResponse);
+                Exception exception = ExceptionFactory("FilterPosterize", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<FindSymbolResult>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (FindSymbolResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(FindSymbolResult)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
         }
 
         /// <summary>
-        /// Find the location of a symbol in an image Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Posterize the image by reducing distinct colors Reduce the unique number of colors in the image to the specified level
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>Task of FindSymbolResult</returns>
-        public async System.Threading.Tasks.Task<FindSymbolResult> RecognizeFindSymbolAsync (System.IO.Stream inputImage, System.IO.Stream targetImage)
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Task of Object</returns>
+        public async System.Threading.Tasks.Task<Object> FilterPosterizeAsync (int? levels)
         {
-             ApiResponse<FindSymbolResult> localVarResponse = await RecognizeFindSymbolAsyncWithHttpInfo(inputImage, targetImage);
+             ApiResponse<Object> localVarResponse = await FilterPosterizeAsyncWithHttpInfo(levels);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Find the location of a symbol in an image Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+        /// Posterize the image by reducing distinct colors Reduce the unique number of colors in the image to the specified level
         /// </summary>
         /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="inputImage">Image file to search through for the target image.</param>
-        /// <param name="targetImage">Image to find in the input image.</param>
-        /// <returns>Task of ApiResponse (FindSymbolResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<FindSymbolResult>> RecognizeFindSymbolAsyncWithHttpInfo (System.IO.Stream inputImage, System.IO.Stream targetImage)
+        /// <param name="levels">Number of unique colors to retain in the output image</param>
+        /// <returns>Task of ApiResponse (Object)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> FilterPosterizeAsyncWithHttpInfo (int? levels)
         {
-            // verify the required parameter 'inputImage' is set
-            if (inputImage == null)
-                throw new ApiException(400, "Missing required parameter 'inputImage' when calling RecognizeApi->RecognizeFindSymbol");
-            // verify the required parameter 'targetImage' is set
-            if (targetImage == null)
-                throw new ApiException(400, "Missing required parameter 'targetImage' when calling RecognizeApi->RecognizeFindSymbol");
+            // verify the required parameter 'levels' is set
+            if (levels == null)
+                throw new ApiException(400, "Missing required parameter 'levels' when calling FilterApi->FilterPosterize");
 
-            var localVarPath = "/image/recognize/find/symbol";
+            var localVarPath = "/image/filter/posterize";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
@@ -1654,23 +1569,18 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
-                "multipart/form-data"
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json",
-                "text/json",
-                "application/xml",
-                "text/xml"
+                "application/octet-stream"
             };
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (inputImage != null) localVarFileParams.Add("inputImage", Configuration.ApiClient.ParameterToFile("inputImage", inputImage));
-            if (targetImage != null) localVarFileParams.Add("targetImage", Configuration.ApiClient.ParameterToFile("targetImage", targetImage));
+            if (levels != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "levels", levels)); // query parameter
 
             // authentication (Apikey) required
             if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
@@ -1687,13 +1597,170 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("RecognizeFindSymbol", localVarResponse);
+                Exception exception = ExceptionFactory("FilterPosterize", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<FindSymbolResult>(localVarStatusCode,
+            return new ApiResponse<Object>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (FindSymbolResult) Configuration.ApiClient.Deserialize(localVarResponse, typeof(FindSymbolResult)));
+                (Object) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Object)));
+        }
+
+        /// <summary>
+        /// Swirl distort the image Swirl distort the image by the specified number of degrees
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>byte[]</returns>
+        public byte[] FilterSwirl (int? degrees, System.IO.Stream imageFile)
+        {
+             ApiResponse<byte[]> localVarResponse = FilterSwirlWithHttpInfo(degrees, imageFile);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Swirl distort the image Swirl distort the image by the specified number of degrees
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>ApiResponse of byte[]</returns>
+        public ApiResponse< byte[] > FilterSwirlWithHttpInfo (int? degrees, System.IO.Stream imageFile)
+        {
+            // verify the required parameter 'degrees' is set
+            if (degrees == null)
+                throw new ApiException(400, "Missing required parameter 'degrees' when calling FilterApi->FilterSwirl");
+            // verify the required parameter 'imageFile' is set
+            if (imageFile == null)
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterSwirl");
+
+            var localVarPath = "/image/filter/swirl";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/octet-stream"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (degrees != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "degrees", degrees)); // query parameter
+            if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
+
+            // authentication (Apikey) required
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
+            {
+                localVarHeaderParams["Apikey"] = Configuration.GetApiKeyWithPrefix("Apikey");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("FilterSwirl", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<byte[]>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
+        }
+
+        /// <summary>
+        /// Swirl distort the image Swirl distort the image by the specified number of degrees
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>Task of byte[]</returns>
+        public async System.Threading.Tasks.Task<byte[]> FilterSwirlAsync (int? degrees, System.IO.Stream imageFile)
+        {
+             ApiResponse<byte[]> localVarResponse = await FilterSwirlAsyncWithHttpInfo(degrees, imageFile);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// Swirl distort the image Swirl distort the image by the specified number of degrees
+        /// </summary>
+        /// <exception cref="Cloudmersive.APIClient.NETCore.ImageRecognition.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="degrees">Degrees of swirl</param>
+        /// <param name="imageFile">Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.</param>
+        /// <returns>Task of ApiResponse (byte[])</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<byte[]>> FilterSwirlAsyncWithHttpInfo (int? degrees, System.IO.Stream imageFile)
+        {
+            // verify the required parameter 'degrees' is set
+            if (degrees == null)
+                throw new ApiException(400, "Missing required parameter 'degrees' when calling FilterApi->FilterSwirl");
+            // verify the required parameter 'imageFile' is set
+            if (imageFile == null)
+                throw new ApiException(400, "Missing required parameter 'imageFile' when calling FilterApi->FilterSwirl");
+
+            var localVarPath = "/image/filter/swirl";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "multipart/form-data"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/octet-stream"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (degrees != null) localVarQueryParams.AddRange(Configuration.ApiClient.ParameterToKeyValuePairs("", "degrees", degrees)); // query parameter
+            if (imageFile != null) localVarFileParams.Add("imageFile", Configuration.ApiClient.ParameterToFile("imageFile", imageFile));
+
+            // authentication (Apikey) required
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("Apikey")))
+            {
+                localVarHeaderParams["Apikey"] = Configuration.GetApiKeyWithPrefix("Apikey");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("FilterSwirl", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<byte[]>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (byte[]) Configuration.ApiClient.Deserialize(localVarResponse, typeof(byte[])));
         }
 
     }

@@ -1,92 +1,26 @@
-# Cloudmersive.APIClient.NETCore.ImageRecognition.Api.RecognizeApi
+# Cloudmersive.APIClient.NETCore.ImageRecognition.Api.FilterApi
 
 All URIs are relative to *https://api.cloudmersive.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**RecognizeDescribe**](RecognizeApi.md#recognizedescribe) | **POST** /image/recognize/describe | Describe an image in natural language
-[**RecognizeDetectAndUnskewDocument**](RecognizeApi.md#recognizedetectandunskewdocument) | **POST** /image/recognize/detect-document/unskew | Detect and unskew a photo of a document
-[**RecognizeDetectObjects**](RecognizeApi.md#recognizedetectobjects) | **POST** /image/recognize/detect-objects | Detect objects, including types and locations, in an image
-[**RecognizeDetectPeople**](RecognizeApi.md#recognizedetectpeople) | **POST** /image/recognize/detect-people | Detect people, including locations, in an image
-[**RecognizeDetectTextFine**](RecognizeApi.md#recognizedetecttextfine) | **POST** /image/recognize/detect-text/fine | Detect fine text in a photo of a document
-[**RecognizeDetectTextLarge**](RecognizeApi.md#recognizedetecttextlarge) | **POST** /image/recognize/detect-text/large | Detect large text in a photo
-[**RecognizeDetectVehicleLicensePlates**](RecognizeApi.md#recognizedetectvehiclelicenseplates) | **POST** /image/recognize/detect-vehicle-license-plates | Detect vehicle license plates in an image
-[**RecognizeFindSymbol**](RecognizeApi.md#recognizefindsymbol) | **POST** /image/recognize/find/symbol | Find the location of a symbol in an image
+[**FilterBlackAndWhite**](FilterApi.md#filterblackandwhite) | **POST** /image/filter/black-and-white | Convert image to black-and-white grayscale
+[**FilterDespeckle**](FilterApi.md#filterdespeckle) | **POST** /image/filter/despeckle | Despeckle (remove point noise) from the image
+[**FilterEdgeDetect**](FilterApi.md#filteredgedetect) | **POST** /image/filter/edge-detect/{radius} | Detect and highlight edges in an image
+[**FilterEmboss**](FilterApi.md#filteremboss) | **POST** /image/filter/emboss/{radius}/{sigma} | Emboss an image
+[**FilterGaussianBlur**](FilterApi.md#filtergaussianblur) | **POST** /image/filter/blur/guassian/{radius}/{sigma} | Perform a guassian blur on the input image
+[**FilterMotionBlur**](FilterApi.md#filtermotionblur) | **POST** /image/filter/blur/motion/{radius}/{sigma}/{angle} | Perform a motion blur on the input image
+[**FilterPosterize**](FilterApi.md#filterposterize) | **POST** /image/filter/posterize | Posterize the image by reducing distinct colors
+[**FilterSwirl**](FilterApi.md#filterswirl) | **POST** /image/filter/swirl | Swirl distort the image
 
 
-<a name="recognizedescribe"></a>
-# **RecognizeDescribe**
-> ImageDescriptionResponse RecognizeDescribe (System.IO.Stream imageFile)
+<a name="filterblackandwhite"></a>
+# **FilterBlackAndWhite**
+> byte[] FilterBlackAndWhite (System.IO.Stream imageFile)
 
-Describe an image in natural language
+Convert image to black-and-white grayscale
 
-Generate an English language text description of the image as a sentence.
-
-### Example
-```csharp
-using System;
-using System.Diagnostics;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Client;
-using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
-
-namespace Example
-{
-    public class RecognizeDescribeExample
-    {
-        public void main()
-        {
-            // Configure API key authorization: Apikey
-            Configuration.Default.AddApiKey("Apikey", "YOUR_API_KEY");
-            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-            // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
-
-            var apiInstance = new RecognizeApi();
-            var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
-
-            try
-            {
-                // Describe an image in natural language
-                ImageDescriptionResponse result = apiInstance.RecognizeDescribe(imageFile);
-                Debug.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDescribe: " + e.Message );
-            }
-        }
-    }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
-
-### Return type
-
-[**ImageDescriptionResponse**](ImageDescriptionResponse.md)
-
-### Authorization
-
-[Apikey](../README.md#Apikey)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a name="recognizedetectandunskewdocument"></a>
-# **RecognizeDetectAndUnskewDocument**
-> byte[] RecognizeDetectAndUnskewDocument (System.IO.Stream imageFile, string postProcessingEffect = null)
-
-Detect and unskew a photo of a document
-
-Detect and unskew a photo of a document (e.g. taken on a cell phone) into a perfectly square image.  Great for document scanning applications; once unskewed, this image is perfect for converting to PDF using the Convert API or optical character recognition using the OCR API.
+Remove color from the image by converting to a grayscale, black-and-white image
 
 ### Example
 ```csharp
@@ -98,7 +32,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectAndUnskewDocumentExample
+    public class FilterBlackAndWhiteExample
     {
         public void main()
         {
@@ -107,19 +41,18 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
-            var postProcessingEffect = postProcessingEffect_example;  // string | Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). (optional) 
 
             try
             {
-                // Detect and unskew a photo of a document
-                byte[] result = apiInstance.RecognizeDetectAndUnskewDocument(imageFile, postProcessingEffect);
+                // Convert image to black-and-white grayscale
+                byte[] result = apiInstance.FilterBlackAndWhite(imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectAndUnskewDocument: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterBlackAndWhite: " + e.Message );
             }
         }
     }
@@ -131,7 +64,6 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
- **postProcessingEffect** | **string**| Optional, post-processing effects to apply to the email, default is None.  Possible values are None and BlackAndWhite (force the image into a black and white view to aid in OCR operations). | [optional] 
 
 ### Return type
 
@@ -144,17 +76,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizedetectobjects"></a>
-# **RecognizeDetectObjects**
-> ObjectDetectionResult RecognizeDetectObjects (System.IO.Stream imageFile)
+<a name="filterdespeckle"></a>
+# **FilterDespeckle**
+> byte[] FilterDespeckle (System.IO.Stream imageFile)
 
-Detect objects, including types and locations, in an image
+Despeckle (remove point noise) from the image
 
-Identify the position, size and description of objects in an image, along with a recognition confidence level.  Detects both human people and objects in an image.
+Remove point noise / despeckle the input image
 
 ### Example
 ```csharp
@@ -166,7 +98,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectObjectsExample
+    public class FilterDespeckleExample
     {
         public void main()
         {
@@ -175,18 +107,18 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Detect objects, including types and locations, in an image
-                ObjectDetectionResult result = apiInstance.RecognizeDetectObjects(imageFile);
+                // Despeckle (remove point noise) from the image
+                byte[] result = apiInstance.FilterDespeckle(imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectObjects: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterDespeckle: " + e.Message );
             }
         }
     }
@@ -201,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ObjectDetectionResult**](ObjectDetectionResult.md)
+**byte[]**
 
 ### Authorization
 
@@ -210,17 +142,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizedetectpeople"></a>
-# **RecognizeDetectPeople**
-> ObjectDetectionResult RecognizeDetectPeople (System.IO.Stream imageFile)
+<a name="filteredgedetect"></a>
+# **FilterEdgeDetect**
+> byte[] FilterEdgeDetect (int? radius, System.IO.Stream imageFile)
 
-Detect people, including locations, in an image
+Detect and highlight edges in an image
 
-Identify the position, and size of human people in an image, along with a recognition confidence level.  People in the image do NOT need to be facing the camera; they can be facing away, edge-on, etc.
+Perform an edge detection operation on the input image
 
 ### Example
 ```csharp
@@ -232,7 +164,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectPeopleExample
+    public class FilterEdgeDetectExample
     {
         public void main()
         {
@@ -241,18 +173,19 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
+            var radius = 56;  // int? | Radius in pixels of the edge detection operation; a larger radius will produce a greater effect
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Detect people, including locations, in an image
-                ObjectDetectionResult result = apiInstance.RecognizeDetectPeople(imageFile);
+                // Detect and highlight edges in an image
+                byte[] result = apiInstance.FilterEdgeDetect(radius, imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectPeople: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterEdgeDetect: " + e.Message );
             }
         }
     }
@@ -263,11 +196,12 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **radius** | **int?**| Radius in pixels of the edge detection operation; a larger radius will produce a greater effect | 
  **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
 
 ### Return type
 
-[**ObjectDetectionResult**](ObjectDetectionResult.md)
+**byte[]**
 
 ### Authorization
 
@@ -276,17 +210,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizedetecttextfine"></a>
-# **RecognizeDetectTextFine**
-> FineTextDetectionResult RecognizeDetectTextFine (System.IO.Stream imageFile)
+<a name="filteremboss"></a>
+# **FilterEmboss**
+> byte[] FilterEmboss (int? radius, int? sigma, System.IO.Stream imageFile)
 
-Detect fine text in a photo of a document
+Emboss an image
 
-Identify the position, and size of small/fine text within a photograph of a document.  Identify the location of small text in a photo - such as words and other forms of high density text.  Can be used on a scan of a document or a photograph (e.g. smartphone camera) of a document, page or receipt.  For OCR purposes - please see our Deep Learning OCR APIs.
+Perform an emboss operation on the input image
 
 ### Example
 ```csharp
@@ -298,7 +232,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectTextFineExample
+    public class FilterEmbossExample
     {
         public void main()
         {
@@ -307,18 +241,20 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
+            var radius = 56;  // int? | Radius in pixels of the emboss operation; a larger radius will produce a greater effect
+            var sigma = 56;  // int? | Sigma, or variance, of the emboss operation
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Detect fine text in a photo of a document
-                FineTextDetectionResult result = apiInstance.RecognizeDetectTextFine(imageFile);
+                // Emboss an image
+                byte[] result = apiInstance.FilterEmboss(radius, sigma, imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectTextFine: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterEmboss: " + e.Message );
             }
         }
     }
@@ -329,11 +265,13 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **radius** | **int?**| Radius in pixels of the emboss operation; a larger radius will produce a greater effect | 
+ **sigma** | **int?**| Sigma, or variance, of the emboss operation | 
  **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
 
 ### Return type
 
-[**FineTextDetectionResult**](FineTextDetectionResult.md)
+**byte[]**
 
 ### Authorization
 
@@ -342,17 +280,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizedetecttextlarge"></a>
-# **RecognizeDetectTextLarge**
-> TextDetectionResult RecognizeDetectTextLarge (System.IO.Stream imageFile)
+<a name="filtergaussianblur"></a>
+# **FilterGaussianBlur**
+> byte[] FilterGaussianBlur (int? radius, int? sigma, System.IO.Stream imageFile)
 
-Detect large text in a photo
+Perform a guassian blur on the input image
 
-Identify the position, and size of large text within a photograph.  Identify the location of large text in a photo - such as signs, titles, etc. and other forms of large, low-density text.  Not suitable for high-density text (e.g. scans of documents, receipts, etc.) for OCR purposes - for OCR, please see our Deep Learning OCR APIs.
+Perform a gaussian blur on the input image
 
 ### Example
 ```csharp
@@ -364,7 +302,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectTextLargeExample
+    public class FilterGaussianBlurExample
     {
         public void main()
         {
@@ -373,18 +311,20 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
+            var radius = 56;  // int? | Radius in pixels of the blur operation; a larger radius will produce a greater blur effect
+            var sigma = 56;  // int? | Sigma, or variance, of the gaussian blur operation
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Detect large text in a photo
-                TextDetectionResult result = apiInstance.RecognizeDetectTextLarge(imageFile);
+                // Perform a guassian blur on the input image
+                byte[] result = apiInstance.FilterGaussianBlur(radius, sigma, imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectTextLarge: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterGaussianBlur: " + e.Message );
             }
         }
     }
@@ -395,11 +335,13 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **radius** | **int?**| Radius in pixels of the blur operation; a larger radius will produce a greater blur effect | 
+ **sigma** | **int?**| Sigma, or variance, of the gaussian blur operation | 
  **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
 
 ### Return type
 
-[**TextDetectionResult**](TextDetectionResult.md)
+**byte[]**
 
 ### Authorization
 
@@ -408,17 +350,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizedetectvehiclelicenseplates"></a>
-# **RecognizeDetectVehicleLicensePlates**
-> VehicleLicensePlateDetectionResult RecognizeDetectVehicleLicensePlates (System.IO.Stream imageFile)
+<a name="filtermotionblur"></a>
+# **FilterMotionBlur**
+> byte[] FilterMotionBlur (int? radius, int? sigma, int? angle, System.IO.Stream imageFile)
 
-Detect vehicle license plates in an image
+Perform a motion blur on the input image
 
-Identify the position, and size, and content of vehicle license plates in an image.  License plates should be within 15-20 degrees on-axis to the camera.
+Perform a motion blur on the input image at a specific angle
 
 ### Example
 ```csharp
@@ -430,7 +372,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeDetectVehicleLicensePlatesExample
+    public class FilterMotionBlurExample
     {
         public void main()
         {
@@ -439,18 +381,21 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
+            var apiInstance = new FilterApi();
+            var radius = 56;  // int? | Radius in pixels of the blur operation; a larger radius will produce a greater blur effect
+            var sigma = 56;  // int? | Sigma, or variance, of the motion blur operation
+            var angle = 56;  // int? | Angle of the motion blur in degrees
             var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Detect vehicle license plates in an image
-                VehicleLicensePlateDetectionResult result = apiInstance.RecognizeDetectVehicleLicensePlates(imageFile);
+                // Perform a motion blur on the input image
+                byte[] result = apiInstance.FilterMotionBlur(radius, sigma, angle, imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeDetectVehicleLicensePlates: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterMotionBlur: " + e.Message );
             }
         }
     }
@@ -461,11 +406,14 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **radius** | **int?**| Radius in pixels of the blur operation; a larger radius will produce a greater blur effect | 
+ **sigma** | **int?**| Sigma, or variance, of the motion blur operation | 
+ **angle** | **int?**| Angle of the motion blur in degrees | 
  **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
 
 ### Return type
 
-[**VehicleLicensePlateDetectionResult**](VehicleLicensePlateDetectionResult.md)
+**byte[]**
 
 ### Authorization
 
@@ -474,17 +422,17 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="recognizefindsymbol"></a>
-# **RecognizeFindSymbol**
-> FindSymbolResult RecognizeFindSymbol (System.IO.Stream inputImage, System.IO.Stream targetImage)
+<a name="filterposterize"></a>
+# **FilterPosterize**
+> Object FilterPosterize (int? levels)
 
-Find the location of a symbol in an image
+Posterize the image by reducing distinct colors
 
-Determine if an image contains a symbol, and if so, the location of that symbol in the image.
+Reduce the unique number of colors in the image to the specified level
 
 ### Example
 ```csharp
@@ -496,7 +444,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class RecognizeFindSymbolExample
+    public class FilterPosterizeExample
     {
         public void main()
         {
@@ -505,19 +453,18 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new RecognizeApi();
-            var inputImage = new System.IO.Stream(); // System.IO.Stream | Image file to search through for the target image.
-            var targetImage = new System.IO.Stream(); // System.IO.Stream | Image to find in the input image.
+            var apiInstance = new FilterApi();
+            var levels = 56;  // int? | Number of unique colors to retain in the output image
 
             try
             {
-                // Find the location of a symbol in an image
-                FindSymbolResult result = apiInstance.RecognizeFindSymbol(inputImage, targetImage);
+                // Posterize the image by reducing distinct colors
+                Object result = apiInstance.FilterPosterize(levels);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling RecognizeApi.RecognizeFindSymbol: " + e.Message );
+                Debug.Print("Exception when calling FilterApi.FilterPosterize: " + e.Message );
             }
         }
     }
@@ -528,12 +475,79 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inputImage** | **System.IO.Stream**| Image file to search through for the target image. | 
- **targetImage** | **System.IO.Stream**| Image to find in the input image. | 
+ **levels** | **int?**| Number of unique colors to retain in the output image | 
 
 ### Return type
 
-[**FindSymbolResult**](FindSymbolResult.md)
+**Object**
+
+### Authorization
+
+[Apikey](../README.md#Apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="filterswirl"></a>
+# **FilterSwirl**
+> byte[] FilterSwirl (int? degrees, System.IO.Stream imageFile)
+
+Swirl distort the image
+
+Swirl distort the image by the specified number of degrees
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Api;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Client;
+using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
+
+namespace Example
+{
+    public class FilterSwirlExample
+    {
+        public void main()
+        {
+            // Configure API key authorization: Apikey
+            Configuration.Default.AddApiKey("Apikey", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
+
+            var apiInstance = new FilterApi();
+            var degrees = 56;  // int? | Degrees of swirl
+            var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
+
+            try
+            {
+                // Swirl distort the image
+                byte[] result = apiInstance.FilterSwirl(degrees, imageFile);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling FilterApi.FilterSwirl: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **degrees** | **int?**| Degrees of swirl | 
+ **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
+
+### Return type
+
+**byte[]**
 
 ### Authorization
 
@@ -542,7 +556,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: application/json, text/json, application/xml, text/xml
+ - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
