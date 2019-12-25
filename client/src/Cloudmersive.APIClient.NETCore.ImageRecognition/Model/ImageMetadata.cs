@@ -34,20 +34,24 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Initializes a new instance of the <see cref="ImageMetadata" /> class.
         /// </summary>
         /// <param name="Successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="IsValidImage">True if the input image is a valid image file, false otherwise.</param>
         /// <param name="FileFormat">File format of the image.</param>
         /// <param name="Width">Width of the image in pixels.</param>
         /// <param name="Height">Height of the image in pixels.</param>
         /// <param name="BitDepth">Bits per pixel.</param>
+        /// <param name="HasTransparency">True if the image has transaprency in the form of an alpha channel, false otherwise.</param>
         /// <param name="ColorSpace">Color space of the image.</param>
         /// <param name="ExifProfileName">Name of the EXIF profile used.</param>
         /// <param name="ExifValues">EXIF tags and values embedded in the image.</param>
-        public ImageMetadata(bool? Successful = default(bool?), string FileFormat = default(string), int? Width = default(int?), int? Height = default(int?), int? BitDepth = default(int?), string ColorSpace = default(string), string ExifProfileName = default(string), List<ImageMetadataExifValue> ExifValues = default(List<ImageMetadataExifValue>))
+        public ImageMetadata(bool? Successful = default(bool?), bool? IsValidImage = default(bool?), string FileFormat = default(string), int? Width = default(int?), int? Height = default(int?), int? BitDepth = default(int?), bool? HasTransparency = default(bool?), string ColorSpace = default(string), string ExifProfileName = default(string), List<ImageMetadataExifValue> ExifValues = default(List<ImageMetadataExifValue>))
         {
             this.Successful = Successful;
+            this.IsValidImage = IsValidImage;
             this.FileFormat = FileFormat;
             this.Width = Width;
             this.Height = Height;
             this.BitDepth = BitDepth;
+            this.HasTransparency = HasTransparency;
             this.ColorSpace = ColorSpace;
             this.ExifProfileName = ExifProfileName;
             this.ExifValues = ExifValues;
@@ -59,6 +63,13 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// <value>True if the operation was successful, false otherwise</value>
         [DataMember(Name="Successful", EmitDefaultValue=false)]
         public bool? Successful { get; set; }
+
+        /// <summary>
+        /// True if the input image is a valid image file, false otherwise
+        /// </summary>
+        /// <value>True if the input image is a valid image file, false otherwise</value>
+        [DataMember(Name="IsValidImage", EmitDefaultValue=false)]
+        public bool? IsValidImage { get; set; }
 
         /// <summary>
         /// File format of the image
@@ -87,6 +98,13 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// <value>Bits per pixel</value>
         [DataMember(Name="BitDepth", EmitDefaultValue=false)]
         public int? BitDepth { get; set; }
+
+        /// <summary>
+        /// True if the image has transaprency in the form of an alpha channel, false otherwise
+        /// </summary>
+        /// <value>True if the image has transaprency in the form of an alpha channel, false otherwise</value>
+        [DataMember(Name="HasTransparency", EmitDefaultValue=false)]
+        public bool? HasTransparency { get; set; }
 
         /// <summary>
         /// Color space of the image
@@ -118,10 +136,12 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
             var sb = new StringBuilder();
             sb.Append("class ImageMetadata {\n");
             sb.Append("  Successful: ").Append(Successful).Append("\n");
+            sb.Append("  IsValidImage: ").Append(IsValidImage).Append("\n");
             sb.Append("  FileFormat: ").Append(FileFormat).Append("\n");
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
             sb.Append("  BitDepth: ").Append(BitDepth).Append("\n");
+            sb.Append("  HasTransparency: ").Append(HasTransparency).Append("\n");
             sb.Append("  ColorSpace: ").Append(ColorSpace).Append("\n");
             sb.Append("  ExifProfileName: ").Append(ExifProfileName).Append("\n");
             sb.Append("  ExifValues: ").Append(ExifValues).Append("\n");
@@ -165,6 +185,11 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     this.Successful.Equals(input.Successful))
                 ) && 
                 (
+                    this.IsValidImage == input.IsValidImage ||
+                    (this.IsValidImage != null &&
+                    this.IsValidImage.Equals(input.IsValidImage))
+                ) && 
+                (
                     this.FileFormat == input.FileFormat ||
                     (this.FileFormat != null &&
                     this.FileFormat.Equals(input.FileFormat))
@@ -183,6 +208,11 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     this.BitDepth == input.BitDepth ||
                     (this.BitDepth != null &&
                     this.BitDepth.Equals(input.BitDepth))
+                ) && 
+                (
+                    this.HasTransparency == input.HasTransparency ||
+                    (this.HasTransparency != null &&
+                    this.HasTransparency.Equals(input.HasTransparency))
                 ) && 
                 (
                     this.ColorSpace == input.ColorSpace ||
@@ -212,6 +242,8 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                 int hashCode = 41;
                 if (this.Successful != null)
                     hashCode = hashCode * 59 + this.Successful.GetHashCode();
+                if (this.IsValidImage != null)
+                    hashCode = hashCode * 59 + this.IsValidImage.GetHashCode();
                 if (this.FileFormat != null)
                     hashCode = hashCode * 59 + this.FileFormat.GetHashCode();
                 if (this.Width != null)
@@ -220,6 +252,8 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Height.GetHashCode();
                 if (this.BitDepth != null)
                     hashCode = hashCode * 59 + this.BitDepth.GetHashCode();
+                if (this.HasTransparency != null)
+                    hashCode = hashCode * 59 + this.HasTransparency.GetHashCode();
                 if (this.ColorSpace != null)
                     hashCode = hashCode * 59 + this.ColorSpace.GetHashCode();
                 if (this.ExifProfileName != null)
