@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,17 +26,17 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Specific recognition outcome
     /// </summary>
     [DataContract]
-    public partial class RecognitionOutcome :  IEquatable<RecognitionOutcome>, IValidatableObject
+    public partial class RecognitionOutcome :  IEquatable<RecognitionOutcome>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RecognitionOutcome" /> class.
         /// </summary>
-        /// <param name="ConfidenceScore">Scores closer to 1 are better than scores closer to 0.</param>
-        /// <param name="Description">English language description of the image.</param>
-        public RecognitionOutcome(double? ConfidenceScore = default(double?), string Description = default(string))
+        /// <param name="confidenceScore">Scores closer to 1 are better than scores closer to 0.</param>
+        /// <param name="description">English language description of the image.</param>
+        public RecognitionOutcome(double? confidenceScore = default(double?), string description = default(string))
         {
-            this.ConfidenceScore = ConfidenceScore;
-            this.Description = Description;
+            this.ConfidenceScore = confidenceScore;
+            this.Description = description;
         }
         
         /// <summary>
@@ -73,7 +71,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -126,16 +124,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

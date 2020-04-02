@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Request to draw one or more polygons on a base image
     /// </summary>
     [DataContract]
-    public partial class DrawPolygonRequest :  IEquatable<DrawPolygonRequest>, IValidatableObject
+    public partial class DrawPolygonRequest :  IEquatable<DrawPolygonRequest>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawPolygonRequest" /> class.
         /// </summary>
-        /// <param name="BaseImageBytes">Image to draw polygons on, in bytes.  You can also use the BaseImageUrl instead to supply image input as a URL.</param>
-        /// <param name="BaseImageUrl">Image to draw polygons on, as an HTTP or HTTPS fully-qualified URL.</param>
-        /// <param name="PolygonsToDraw">Polygons to draw on the image.  Polygons are drawn in index order..</param>
-        public DrawPolygonRequest(byte[] BaseImageBytes = default(byte[]), string BaseImageUrl = default(string), List<DrawPolygonInstance> PolygonsToDraw = default(List<DrawPolygonInstance>))
+        /// <param name="baseImageBytes">Image to draw polygons on, in bytes.  You can also use the BaseImageUrl instead to supply image input as a URL.</param>
+        /// <param name="baseImageUrl">Image to draw polygons on, as an HTTP or HTTPS fully-qualified URL.</param>
+        /// <param name="polygonsToDraw">Polygons to draw on the image.  Polygons are drawn in index order..</param>
+        public DrawPolygonRequest(byte[] baseImageBytes = default(byte[]), string baseImageUrl = default(string), List<DrawPolygonInstance> polygonsToDraw = default(List<DrawPolygonInstance>))
         {
-            this.BaseImageBytes = BaseImageBytes;
-            this.BaseImageUrl = BaseImageUrl;
-            this.PolygonsToDraw = PolygonsToDraw;
+            this.BaseImageBytes = baseImageBytes;
+            this.BaseImageUrl = baseImageUrl;
+            this.PolygonsToDraw = polygonsToDraw;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.PolygonsToDraw.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

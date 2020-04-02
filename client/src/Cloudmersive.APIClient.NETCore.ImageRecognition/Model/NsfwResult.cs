@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of an NSFW classification
     /// </summary>
     [DataContract]
-    public partial class NsfwResult :  IEquatable<NsfwResult>, IValidatableObject
+    public partial class NsfwResult :  IEquatable<NsfwResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NsfwResult" /> class.
         /// </summary>
-        /// <param name="Successful">True if the classification was successfully run, false otherwise.</param>
-        /// <param name="Score">Score between 0.0 and 1.0.  Scores of 0.0-0.2 represent high probability safe content, while scores 0.8-1.0 represent high probability unsafe content.  Content between 0.2 and 0.8 is of increasing raciness..</param>
-        /// <param name="ClassificationOutcome">Classification result into four categories: SafeContent_HighProbability, UnsafeContent_HighProbability, RacyContent, SafeContent_ModerateProbability.</param>
-        public NsfwResult(bool? Successful = default(bool?), double? Score = default(double?), string ClassificationOutcome = default(string))
+        /// <param name="successful">True if the classification was successfully run, false otherwise.</param>
+        /// <param name="score">Score between 0.0 and 1.0.  Scores of 0.0-0.2 represent high probability safe content, while scores 0.8-1.0 represent high probability unsafe content.  Content between 0.2 and 0.8 is of increasing raciness..</param>
+        /// <param name="classificationOutcome">Classification result into four categories: SafeContent_HighProbability, UnsafeContent_HighProbability, RacyContent, SafeContent_ModerateProbability.</param>
+        public NsfwResult(bool? successful = default(bool?), double? score = default(double?), string classificationOutcome = default(string))
         {
-            this.Successful = Successful;
-            this.Score = Score;
-            this.ClassificationOutcome = ClassificationOutcome;
+            this.Successful = successful;
+            this.Score = score;
+            this.ClassificationOutcome = classificationOutcome;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.ClassificationOutcome.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

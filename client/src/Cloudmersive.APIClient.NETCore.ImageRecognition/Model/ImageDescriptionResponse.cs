@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of recognizing an image
     /// </summary>
     [DataContract]
-    public partial class ImageDescriptionResponse :  IEquatable<ImageDescriptionResponse>, IValidatableObject
+    public partial class ImageDescriptionResponse :  IEquatable<ImageDescriptionResponse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageDescriptionResponse" /> class.
         /// </summary>
-        /// <param name="Successful">Was the image processed successfully?.</param>
-        /// <param name="Highconfidence">Is the resulting best outcome recognition a high confidence outcome?.</param>
-        /// <param name="BestOutcome">The best Machine Learning outcome.</param>
-        /// <param name="RunnerUpOutcome">Best backup (\&quot;runner up\&quot;) Machine Learning outcome.</param>
-        public ImageDescriptionResponse(bool? Successful = default(bool?), bool? Highconfidence = default(bool?), RecognitionOutcome BestOutcome = default(RecognitionOutcome), RecognitionOutcome RunnerUpOutcome = default(RecognitionOutcome))
+        /// <param name="successful">Was the image processed successfully?.</param>
+        /// <param name="highconfidence">Is the resulting best outcome recognition a high confidence outcome?.</param>
+        /// <param name="bestOutcome">The best Machine Learning outcome.</param>
+        /// <param name="runnerUpOutcome">Best backup (\&quot;runner up\&quot;) Machine Learning outcome.</param>
+        public ImageDescriptionResponse(bool? successful = default(bool?), bool? highconfidence = default(bool?), RecognitionOutcome bestOutcome = default(RecognitionOutcome), RecognitionOutcome runnerUpOutcome = default(RecognitionOutcome))
         {
-            this.Successful = Successful;
-            this.Highconfidence = Highconfidence;
-            this.BestOutcome = BestOutcome;
-            this.RunnerUpOutcome = RunnerUpOutcome;
+            this.Successful = successful;
+            this.Highconfidence = highconfidence;
+            this.BestOutcome = bestOutcome;
+            this.RunnerUpOutcome = runnerUpOutcome;
         }
         
         /// <summary>
@@ -93,7 +91,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -160,16 +158,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.RunnerUpOutcome.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

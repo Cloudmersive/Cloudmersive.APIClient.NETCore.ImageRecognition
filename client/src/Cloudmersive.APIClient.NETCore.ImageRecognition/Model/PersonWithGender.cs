@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// A person identified in an image gender classification operation
     /// </summary>
     [DataContract]
-    public partial class PersonWithGender :  IEquatable<PersonWithGender>, IValidatableObject
+    public partial class PersonWithGender :  IEquatable<PersonWithGender>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonWithGender" /> class.
         /// </summary>
-        /// <param name="FaceLocation">Location and other information about the person&#39;s face corresponding to this age classification.</param>
-        /// <param name="GenderClassificationConfidence">Confidence level of gender classification; possible values are between 0.0 and 1.0; higher is better, with values &amp;gt; 0.50 being high confidence results.</param>
-        /// <param name="GenderClass">The person&#39;s identified gender; possible values are \&quot;Male\&quot;, \&quot;Female\&quot; and \&quot;Unknown\&quot;.</param>
-        public PersonWithGender(Face FaceLocation = default(Face), double? GenderClassificationConfidence = default(double?), string GenderClass = default(string))
+        /// <param name="faceLocation">Location and other information about the person&#39;s face corresponding to this age classification.</param>
+        /// <param name="genderClassificationConfidence">Confidence level of gender classification; possible values are between 0.0 and 1.0; higher is better, with values &amp;gt; 0.50 being high confidence results.</param>
+        /// <param name="genderClass">The person&#39;s identified gender; possible values are \&quot;Male\&quot;, \&quot;Female\&quot; and \&quot;Unknown\&quot;.</param>
+        public PersonWithGender(Face faceLocation = default(Face), double? genderClassificationConfidence = default(double?), string genderClass = default(string))
         {
-            this.FaceLocation = FaceLocation;
-            this.GenderClassificationConfidence = GenderClassificationConfidence;
-            this.GenderClass = GenderClass;
+            this.FaceLocation = faceLocation;
+            this.GenderClassificationConfidence = genderClassificationConfidence;
+            this.GenderClass = genderClass;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.GenderClass.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

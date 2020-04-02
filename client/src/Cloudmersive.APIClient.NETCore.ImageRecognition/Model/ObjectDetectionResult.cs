@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of detecting objects in an image
     /// </summary>
     [DataContract]
-    public partial class ObjectDetectionResult :  IEquatable<ObjectDetectionResult>, IValidatableObject
+    public partial class ObjectDetectionResult :  IEquatable<ObjectDetectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectDetectionResult" /> class.
         /// </summary>
-        /// <param name="Successful">Was the image processed successfully?.</param>
-        /// <param name="Objects">Array of objects detected in the scene.</param>
-        /// <param name="ObjectCount">Number of objects detected in the scene.</param>
-        public ObjectDetectionResult(bool? Successful = default(bool?), List<DetectedObject> Objects = default(List<DetectedObject>), int? ObjectCount = default(int?))
+        /// <param name="successful">Was the image processed successfully?.</param>
+        /// <param name="objects">Array of objects detected in the scene.</param>
+        /// <param name="objectCount">Number of objects detected in the scene.</param>
+        public ObjectDetectionResult(bool? successful = default(bool?), List<DetectedObject> objects = default(List<DetectedObject>), int? objectCount = default(int?))
         {
-            this.Successful = Successful;
-            this.Objects = Objects;
-            this.ObjectCount = ObjectCount;
+            this.Successful = successful;
+            this.Objects = objects;
+            this.ObjectCount = objectCount;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.ObjectCount.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

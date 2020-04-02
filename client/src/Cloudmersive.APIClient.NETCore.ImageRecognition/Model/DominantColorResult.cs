@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,17 +26,17 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of performing a get dominant color operation
     /// </summary>
     [DataContract]
-    public partial class DominantColorResult :  IEquatable<DominantColorResult>, IValidatableObject
+    public partial class DominantColorResult :  IEquatable<DominantColorResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DominantColorResult" /> class.
         /// </summary>
-        /// <param name="Successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="DominantColors">Dominant colors in the image, in order where most dominant color is in the first index position (0), the second most-dominant color is in index position 1 and so on.</param>
-        public DominantColorResult(bool? Successful = default(bool?), List<ColorResult> DominantColors = default(List<ColorResult>))
+        /// <param name="successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="dominantColors">Dominant colors in the image, in order where most dominant color is in the first index position (0), the second most-dominant color is in index position 1 and so on.</param>
+        public DominantColorResult(bool? successful = default(bool?), List<ColorResult> dominantColors = default(List<ColorResult>))
         {
-            this.Successful = Successful;
-            this.DominantColors = DominantColors;
+            this.Successful = successful;
+            this.DominantColors = dominantColors;
         }
         
         /// <summary>
@@ -73,7 +71,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -126,16 +124,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.DominantColors.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

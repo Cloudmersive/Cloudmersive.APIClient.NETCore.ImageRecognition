@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,39 +26,39 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Location of one face in an image
     /// </summary>
     [DataContract]
-    public partial class FaceWithLandmarks :  IEquatable<FaceWithLandmarks>, IValidatableObject
+    public partial class FaceWithLandmarks :  IEquatable<FaceWithLandmarks>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceWithLandmarks" /> class.
         /// </summary>
-        /// <param name="LeftX">X coordinate of the left side of the face.</param>
-        /// <param name="TopY">Y coordinate of the top side of the face.</param>
-        /// <param name="RightX">X coordinate of the right side of the face.</param>
-        /// <param name="BottomY">Y coordinate of the bottom side of the face.</param>
-        /// <param name="LeftEyebrow">Point locations of the left eyebrow (the eyebrow cloesest to the left side of the picture).</param>
-        /// <param name="RightEyebrow">Point locations of the right eyebrow (the eyebrow cloesest to the right side of the picture).</param>
-        /// <param name="LeftEye">Point locations of the left eye (the eye closest to the left side of the picture).</param>
-        /// <param name="RightEye">Point locations of the right eye (the eye closest to the right side of the picture).</param>
-        /// <param name="BottomAndSidesOfFace">Point locations of the bottom and sides of the face (cheeks and chin).</param>
-        /// <param name="NoseBridge">Point locations of the nose bridge (the vertical portion of the nose).</param>
-        /// <param name="NoseBottom">Point locations of the bottom (nostrils) of the nose.</param>
-        /// <param name="LipsInnerOutline">Point locations of the inner outline of the lips.</param>
-        /// <param name="LipsOuterOutline">Point locations of the outer outline of the lips.</param>
-        public FaceWithLandmarks(int? LeftX = default(int?), int? TopY = default(int?), int? RightX = default(int?), int? BottomY = default(int?), List<FacePoint> LeftEyebrow = default(List<FacePoint>), List<FacePoint> RightEyebrow = default(List<FacePoint>), List<FacePoint> LeftEye = default(List<FacePoint>), List<FacePoint> RightEye = default(List<FacePoint>), List<FacePoint> BottomAndSidesOfFace = default(List<FacePoint>), List<FacePoint> NoseBridge = default(List<FacePoint>), List<FacePoint> NoseBottom = default(List<FacePoint>), List<FacePoint> LipsInnerOutline = default(List<FacePoint>), List<FacePoint> LipsOuterOutline = default(List<FacePoint>))
+        /// <param name="leftX">X coordinate of the left side of the face.</param>
+        /// <param name="topY">Y coordinate of the top side of the face.</param>
+        /// <param name="rightX">X coordinate of the right side of the face.</param>
+        /// <param name="bottomY">Y coordinate of the bottom side of the face.</param>
+        /// <param name="leftEyebrow">Point locations of the left eyebrow (the eyebrow cloesest to the left side of the picture).</param>
+        /// <param name="rightEyebrow">Point locations of the right eyebrow (the eyebrow cloesest to the right side of the picture).</param>
+        /// <param name="leftEye">Point locations of the left eye (the eye closest to the left side of the picture).</param>
+        /// <param name="rightEye">Point locations of the right eye (the eye closest to the right side of the picture).</param>
+        /// <param name="bottomAndSidesOfFace">Point locations of the bottom and sides of the face (cheeks and chin).</param>
+        /// <param name="noseBridge">Point locations of the nose bridge (the vertical portion of the nose).</param>
+        /// <param name="noseBottom">Point locations of the bottom (nostrils) of the nose.</param>
+        /// <param name="lipsInnerOutline">Point locations of the inner outline of the lips.</param>
+        /// <param name="lipsOuterOutline">Point locations of the outer outline of the lips.</param>
+        public FaceWithLandmarks(int? leftX = default(int?), int? topY = default(int?), int? rightX = default(int?), int? bottomY = default(int?), List<FacePoint> leftEyebrow = default(List<FacePoint>), List<FacePoint> rightEyebrow = default(List<FacePoint>), List<FacePoint> leftEye = default(List<FacePoint>), List<FacePoint> rightEye = default(List<FacePoint>), List<FacePoint> bottomAndSidesOfFace = default(List<FacePoint>), List<FacePoint> noseBridge = default(List<FacePoint>), List<FacePoint> noseBottom = default(List<FacePoint>), List<FacePoint> lipsInnerOutline = default(List<FacePoint>), List<FacePoint> lipsOuterOutline = default(List<FacePoint>))
         {
-            this.LeftX = LeftX;
-            this.TopY = TopY;
-            this.RightX = RightX;
-            this.BottomY = BottomY;
-            this.LeftEyebrow = LeftEyebrow;
-            this.RightEyebrow = RightEyebrow;
-            this.LeftEye = LeftEye;
-            this.RightEye = RightEye;
-            this.BottomAndSidesOfFace = BottomAndSidesOfFace;
-            this.NoseBridge = NoseBridge;
-            this.NoseBottom = NoseBottom;
-            this.LipsInnerOutline = LipsInnerOutline;
-            this.LipsOuterOutline = LipsOuterOutline;
+            this.LeftX = leftX;
+            this.TopY = topY;
+            this.RightX = rightX;
+            this.BottomY = bottomY;
+            this.LeftEyebrow = leftEyebrow;
+            this.RightEyebrow = rightEyebrow;
+            this.LeftEye = leftEye;
+            this.RightEye = rightEye;
+            this.BottomAndSidesOfFace = bottomAndSidesOfFace;
+            this.NoseBridge = noseBridge;
+            this.NoseBottom = noseBottom;
+            this.LipsInnerOutline = lipsInnerOutline;
+            this.LipsOuterOutline = lipsOuterOutline;
         }
         
         /// <summary>
@@ -183,7 +181,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -313,16 +311,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.LipsOuterOutline.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

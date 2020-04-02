@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result from classifying the Age of people in an image
     /// </summary>
     [DataContract]
-    public partial class AgeDetectionResult :  IEquatable<AgeDetectionResult>, IValidatableObject
+    public partial class AgeDetectionResult :  IEquatable<AgeDetectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AgeDetectionResult" /> class.
         /// </summary>
-        /// <param name="Successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="PeopleWithAge">People in the image annotated with age information.</param>
-        /// <param name="PeopleIdentified">Number of people identified in the image with an age.</param>
-        public AgeDetectionResult(bool? Successful = default(bool?), List<PersonWithAge> PeopleWithAge = default(List<PersonWithAge>), int? PeopleIdentified = default(int?))
+        /// <param name="successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="peopleWithAge">People in the image annotated with age information.</param>
+        /// <param name="peopleIdentified">Number of people identified in the image with an age.</param>
+        public AgeDetectionResult(bool? successful = default(bool?), List<PersonWithAge> peopleWithAge = default(List<PersonWithAge>), int? peopleIdentified = default(int?))
         {
-            this.Successful = Successful;
-            this.PeopleWithAge = PeopleWithAge;
-            this.PeopleIdentified = PeopleIdentified;
+            this.Successful = successful;
+            this.PeopleWithAge = peopleWithAge;
+            this.PeopleIdentified = peopleIdentified;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.PeopleIdentified.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

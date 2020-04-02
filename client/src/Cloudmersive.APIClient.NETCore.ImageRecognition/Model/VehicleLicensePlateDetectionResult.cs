@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of detecting vehicle license plates in an image
     /// </summary>
     [DataContract]
-    public partial class VehicleLicensePlateDetectionResult :  IEquatable<VehicleLicensePlateDetectionResult>, IValidatableObject
+    public partial class VehicleLicensePlateDetectionResult :  IEquatable<VehicleLicensePlateDetectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VehicleLicensePlateDetectionResult" /> class.
         /// </summary>
-        /// <param name="Successful">Was the image processed successfully?.</param>
-        /// <param name="DetectedLicensePlates">License plates found in the image.</param>
-        /// <param name="DetectedLicensePlateCount">The number of license plates detected in the image.</param>
-        public VehicleLicensePlateDetectionResult(bool? Successful = default(bool?), List<DetectedLicensePlate> DetectedLicensePlates = default(List<DetectedLicensePlate>), int? DetectedLicensePlateCount = default(int?))
+        /// <param name="successful">Was the image processed successfully?.</param>
+        /// <param name="detectedLicensePlates">License plates found in the image.</param>
+        /// <param name="detectedLicensePlateCount">The number of license plates detected in the image.</param>
+        public VehicleLicensePlateDetectionResult(bool? successful = default(bool?), List<DetectedLicensePlate> detectedLicensePlates = default(List<DetectedLicensePlate>), int? detectedLicensePlateCount = default(int?))
         {
-            this.Successful = Successful;
-            this.DetectedLicensePlates = DetectedLicensePlates;
-            this.DetectedLicensePlateCount = DetectedLicensePlateCount;
+            this.Successful = successful;
+            this.DetectedLicensePlates = detectedLicensePlates;
+            this.DetectedLicensePlateCount = detectedLicensePlateCount;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.DetectedLicensePlateCount.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

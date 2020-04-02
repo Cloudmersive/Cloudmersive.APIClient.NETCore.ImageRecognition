@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Individual color
     /// </summary>
     [DataContract]
-    public partial class ColorResult :  IEquatable<ColorResult>, IValidatableObject
+    public partial class ColorResult :  IEquatable<ColorResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorResult" /> class.
         /// </summary>
-        /// <param name="R">Red (R) channel pixel value of this color.</param>
-        /// <param name="G">Green (G) channel pixel value of this color.</param>
-        /// <param name="B">Blue (B) channel pixel value of this color.</param>
-        public ColorResult(int? R = default(int?), int? G = default(int?), int? B = default(int?))
+        /// <param name="r">Red (R) channel pixel value of this color.</param>
+        /// <param name="g">Green (G) channel pixel value of this color.</param>
+        /// <param name="b">Blue (B) channel pixel value of this color.</param>
+        public ColorResult(int? r = default(int?), int? g = default(int?), int? b = default(int?))
         {
-            this.R = R;
-            this.G = G;
-            this.B = B;
+            this.R = r;
+            this.G = g;
+            this.B = b;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.B.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

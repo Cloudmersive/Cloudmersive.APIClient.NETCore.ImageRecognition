@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Results of comparing/matching faces in an image
     /// </summary>
     [DataContract]
-    public partial class FaceCompareResponse :  IEquatable<FaceCompareResponse>, IValidatableObject
+    public partial class FaceCompareResponse :  IEquatable<FaceCompareResponse>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FaceCompareResponse" /> class.
         /// </summary>
-        /// <param name="Successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="Faces">Array of faces found in the input image.</param>
-        /// <param name="FaceCount">Number of faces found in the image.</param>
-        /// <param name="ErrorDetails">Details of any errors that occurred.</param>
-        public FaceCompareResponse(bool? Successful = default(bool?), List<FaceMatch> Faces = default(List<FaceMatch>), int? FaceCount = default(int?), string ErrorDetails = default(string))
+        /// <param name="successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="faces">Array of faces found in the input image.</param>
+        /// <param name="faceCount">Number of faces found in the image.</param>
+        /// <param name="errorDetails">Details of any errors that occurred.</param>
+        public FaceCompareResponse(bool? successful = default(bool?), List<FaceMatch> faces = default(List<FaceMatch>), int? faceCount = default(int?), string errorDetails = default(string))
         {
-            this.Successful = Successful;
-            this.Faces = Faces;
-            this.FaceCount = FaceCount;
-            this.ErrorDetails = ErrorDetails;
+            this.Successful = successful;
+            this.Faces = faces;
+            this.FaceCount = faceCount;
+            this.ErrorDetails = errorDetails;
         }
         
         /// <summary>
@@ -93,7 +91,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -160,16 +158,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.ErrorDetails.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

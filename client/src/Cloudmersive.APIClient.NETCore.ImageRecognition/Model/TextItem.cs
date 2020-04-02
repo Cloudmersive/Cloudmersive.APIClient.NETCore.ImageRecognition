@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Individual instance of text occuring in an image; one piece of text
     /// </summary>
     [DataContract]
-    public partial class TextItem :  IEquatable<TextItem>, IValidatableObject
+    public partial class TextItem :  IEquatable<TextItem>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TextItem" /> class.
         /// </summary>
-        /// <param name="LeftX">Left X coordinate of the text location; 0 represents the left edge of the input image.</param>
-        /// <param name="TopY">Top Y coordinate of the text location; 0 represents the top edge of the input image.</param>
-        /// <param name="Width">Width in pixels of the text item.</param>
-        /// <param name="Height">Height in pixels of the text item.</param>
-        public TextItem(int? LeftX = default(int?), int? TopY = default(int?), int? Width = default(int?), int? Height = default(int?))
+        /// <param name="leftX">Left X coordinate of the text location; 0 represents the left edge of the input image.</param>
+        /// <param name="topY">Top Y coordinate of the text location; 0 represents the top edge of the input image.</param>
+        /// <param name="width">Width in pixels of the text item.</param>
+        /// <param name="height">Height in pixels of the text item.</param>
+        public TextItem(int? leftX = default(int?), int? topY = default(int?), int? width = default(int?), int? height = default(int?))
         {
-            this.LeftX = LeftX;
-            this.TopY = TopY;
-            this.Width = Width;
-            this.Height = Height;
+            this.LeftX = leftX;
+            this.TopY = topY;
+            this.Width = width;
+            this.Height = height;
         }
         
         /// <summary>
@@ -93,7 +91,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -160,16 +158,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Height.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

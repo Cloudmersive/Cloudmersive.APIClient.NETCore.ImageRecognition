@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Location of one face in an image
     /// </summary>
     [DataContract]
-    public partial class Face :  IEquatable<Face>, IValidatableObject
+    public partial class Face :  IEquatable<Face>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Face" /> class.
         /// </summary>
-        /// <param name="LeftX">X coordinate of the left side of the face.</param>
-        /// <param name="TopY">Y coordinate of the top side of the face.</param>
-        /// <param name="RightX">X coordinate of the right side of the face.</param>
-        /// <param name="BottomY">Y coordinate of the bottom side of the face.</param>
-        public Face(int? LeftX = default(int?), int? TopY = default(int?), int? RightX = default(int?), int? BottomY = default(int?))
+        /// <param name="leftX">X coordinate of the left side of the face.</param>
+        /// <param name="topY">Y coordinate of the top side of the face.</param>
+        /// <param name="rightX">X coordinate of the right side of the face.</param>
+        /// <param name="bottomY">Y coordinate of the bottom side of the face.</param>
+        public Face(int? leftX = default(int?), int? topY = default(int?), int? rightX = default(int?), int? bottomY = default(int?))
         {
-            this.LeftX = LeftX;
-            this.TopY = TopY;
-            this.RightX = RightX;
-            this.BottomY = BottomY;
+            this.LeftX = leftX;
+            this.TopY = topY;
+            this.RightX = rightX;
+            this.BottomY = bottomY;
         }
         
         /// <summary>
@@ -93,7 +91,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -160,16 +158,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.BottomY.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Polygon instance to draw on an image
     /// </summary>
     [DataContract]
-    public partial class DrawPolygonInstance :  IEquatable<DrawPolygonInstance>, IValidatableObject
+    public partial class DrawPolygonInstance :  IEquatable<DrawPolygonInstance>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawPolygonInstance" /> class.
         /// </summary>
-        /// <param name="BorderColor">Border Color to use - can be a hex value (with #) or HTML common color name.  Transparent colors are supported..</param>
-        /// <param name="BorderWidth">Width in pixels of the border.  Pass in 0 to draw a polygon with no border.</param>
-        /// <param name="FillColor">Fill Color to use - can be a hex value (with #) or HTML common color name.  Transparent colors are supported.  Leave blank to not fill the polygon..</param>
-        /// <param name="Points">Points (vertices) which comprise the polygon; valid polygons must have at least 3 points.</param>
-        public DrawPolygonInstance(string BorderColor = default(string), double? BorderWidth = default(double?), string FillColor = default(string), List<PolygonPoint> Points = default(List<PolygonPoint>))
+        /// <param name="borderColor">Border Color to use - can be a hex value (with #) or HTML common color name.  Transparent colors are supported..</param>
+        /// <param name="borderWidth">Width in pixels of the border.  Pass in 0 to draw a polygon with no border.</param>
+        /// <param name="fillColor">Fill Color to use - can be a hex value (with #) or HTML common color name.  Transparent colors are supported.  Leave blank to not fill the polygon..</param>
+        /// <param name="points">Points (vertices) which comprise the polygon; valid polygons must have at least 3 points.</param>
+        public DrawPolygonInstance(string borderColor = default(string), double? borderWidth = default(double?), string fillColor = default(string), List<PolygonPoint> points = default(List<PolygonPoint>))
         {
-            this.BorderColor = BorderColor;
-            this.BorderWidth = BorderWidth;
-            this.FillColor = FillColor;
-            this.Points = Points;
+            this.BorderColor = borderColor;
+            this.BorderWidth = borderWidth;
+            this.FillColor = fillColor;
+            this.Points = points;
         }
         
         /// <summary>
@@ -93,7 +91,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -160,16 +158,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Points.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

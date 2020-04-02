@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,25 +26,25 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of a find symbol operation on an input image
     /// </summary>
     [DataContract]
-    public partial class FindSymbolResult :  IEquatable<FindSymbolResult>, IValidatableObject
+    public partial class FindSymbolResult :  IEquatable<FindSymbolResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FindSymbolResult" /> class.
         /// </summary>
-        /// <param name="Successful">True if successful, false otherwise.</param>
-        /// <param name="MatchScore">Score between 0.0 and 1.0 that measures how closely the symbol matched; scores above 0.2 are good.</param>
-        /// <param name="XLeft">X location of the left edge of the found location in pixels.</param>
-        /// <param name="YTop">Y location of the top edge of the found location in pixels.</param>
-        /// <param name="Width">Width of the found location in pixels.</param>
-        /// <param name="Height">Height of the found location in pixels.</param>
-        public FindSymbolResult(bool? Successful = default(bool?), double? MatchScore = default(double?), int? XLeft = default(int?), int? YTop = default(int?), int? Width = default(int?), int? Height = default(int?))
+        /// <param name="successful">True if successful, false otherwise.</param>
+        /// <param name="matchScore">Score between 0.0 and 1.0 that measures how closely the symbol matched; scores above 0.2 are good.</param>
+        /// <param name="xLeft">X location of the left edge of the found location in pixels.</param>
+        /// <param name="yTop">Y location of the top edge of the found location in pixels.</param>
+        /// <param name="width">Width of the found location in pixels.</param>
+        /// <param name="height">Height of the found location in pixels.</param>
+        public FindSymbolResult(bool? successful = default(bool?), double? matchScore = default(double?), int? xLeft = default(int?), int? yTop = default(int?), int? width = default(int?), int? height = default(int?))
         {
-            this.Successful = Successful;
-            this.MatchScore = MatchScore;
-            this.XLeft = XLeft;
-            this.YTop = YTop;
-            this.Width = Width;
-            this.Height = Height;
+            this.Successful = successful;
+            this.MatchScore = matchScore;
+            this.XLeft = xLeft;
+            this.YTop = yTop;
+            this.Width = width;
+            this.Height = height;
         }
         
         /// <summary>
@@ -113,7 +111,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -194,16 +192,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Height.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

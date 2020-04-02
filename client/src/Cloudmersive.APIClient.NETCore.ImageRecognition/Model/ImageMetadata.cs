@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,33 +26,33 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Metadata from an image
     /// </summary>
     [DataContract]
-    public partial class ImageMetadata :  IEquatable<ImageMetadata>, IValidatableObject
+    public partial class ImageMetadata :  IEquatable<ImageMetadata>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageMetadata" /> class.
         /// </summary>
-        /// <param name="Successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="IsValidImage">True if the input image is a valid image file, false otherwise.</param>
-        /// <param name="FileFormat">File format of the image.</param>
-        /// <param name="Width">Width of the image in pixels.</param>
-        /// <param name="Height">Height of the image in pixels.</param>
-        /// <param name="BitDepth">Bits per pixel.</param>
-        /// <param name="HasTransparency">True if the image has transaprency in the form of an alpha channel, false otherwise.</param>
-        /// <param name="ColorSpace">Color space of the image.</param>
-        /// <param name="ExifProfileName">Name of the EXIF profile used.</param>
-        /// <param name="ExifValues">EXIF tags and values embedded in the image.</param>
-        public ImageMetadata(bool? Successful = default(bool?), bool? IsValidImage = default(bool?), string FileFormat = default(string), int? Width = default(int?), int? Height = default(int?), int? BitDepth = default(int?), bool? HasTransparency = default(bool?), string ColorSpace = default(string), string ExifProfileName = default(string), List<ImageMetadataExifValue> ExifValues = default(List<ImageMetadataExifValue>))
+        /// <param name="successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="isValidImage">True if the input image is a valid image file, false otherwise.</param>
+        /// <param name="fileFormat">File format of the image.</param>
+        /// <param name="width">Width of the image in pixels.</param>
+        /// <param name="height">Height of the image in pixels.</param>
+        /// <param name="bitDepth">Bits per pixel.</param>
+        /// <param name="hasTransparency">True if the image has transaprency in the form of an alpha channel, false otherwise.</param>
+        /// <param name="colorSpace">Color space of the image.</param>
+        /// <param name="exifProfileName">Name of the EXIF profile used.</param>
+        /// <param name="exifValues">EXIF tags and values embedded in the image.</param>
+        public ImageMetadata(bool? successful = default(bool?), bool? isValidImage = default(bool?), string fileFormat = default(string), int? width = default(int?), int? height = default(int?), int? bitDepth = default(int?), bool? hasTransparency = default(bool?), string colorSpace = default(string), string exifProfileName = default(string), List<ImageMetadataExifValue> exifValues = default(List<ImageMetadataExifValue>))
         {
-            this.Successful = Successful;
-            this.IsValidImage = IsValidImage;
-            this.FileFormat = FileFormat;
-            this.Width = Width;
-            this.Height = Height;
-            this.BitDepth = BitDepth;
-            this.HasTransparency = HasTransparency;
-            this.ColorSpace = ColorSpace;
-            this.ExifProfileName = ExifProfileName;
-            this.ExifValues = ExifValues;
+            this.Successful = successful;
+            this.IsValidImage = isValidImage;
+            this.FileFormat = fileFormat;
+            this.Width = width;
+            this.Height = height;
+            this.BitDepth = bitDepth;
+            this.HasTransparency = hasTransparency;
+            this.ColorSpace = colorSpace;
+            this.ExifProfileName = exifProfileName;
+            this.ExifValues = exifValues;
         }
         
         /// <summary>
@@ -153,7 +151,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -262,16 +260,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.ExifValues.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

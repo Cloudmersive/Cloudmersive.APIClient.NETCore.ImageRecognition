@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Request to draw one or more pieces of text onto an image
     /// </summary>
     [DataContract]
-    public partial class DrawTextRequest :  IEquatable<DrawTextRequest>, IValidatableObject
+    public partial class DrawTextRequest :  IEquatable<DrawTextRequest>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawTextRequest" /> class.
         /// </summary>
-        /// <param name="BaseImageBytes">Image to draw text on, in bytes.  You can also use the BaseImageUrl instead to supply image input as a URL.</param>
-        /// <param name="BaseImageUrl">Image to draw text on, as an HTTP or HTTPS fully-qualified URL.</param>
-        /// <param name="TextToDraw">One or more pieces of text to draw onto the image.</param>
-        public DrawTextRequest(byte[] BaseImageBytes = default(byte[]), string BaseImageUrl = default(string), List<DrawTextInstance> TextToDraw = default(List<DrawTextInstance>))
+        /// <param name="baseImageBytes">Image to draw text on, in bytes.  You can also use the BaseImageUrl instead to supply image input as a URL.</param>
+        /// <param name="baseImageUrl">Image to draw text on, as an HTTP or HTTPS fully-qualified URL.</param>
+        /// <param name="textToDraw">One or more pieces of text to draw onto the image.</param>
+        public DrawTextRequest(byte[] baseImageBytes = default(byte[]), string baseImageUrl = default(string), List<DrawTextInstance> textToDraw = default(List<DrawTextInstance>))
         {
-            this.BaseImageBytes = BaseImageBytes;
-            this.BaseImageUrl = BaseImageUrl;
-            this.TextToDraw = TextToDraw;
+            this.BaseImageBytes = baseImageBytes;
+            this.BaseImageUrl = baseImageUrl;
+            this.TextToDraw = textToDraw;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.TextToDraw.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

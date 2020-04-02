@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,25 +26,25 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Single object instance, and associated details, detected in an image
     /// </summary>
     [DataContract]
-    public partial class DetectedObject :  IEquatable<DetectedObject>, IValidatableObject
+    public partial class DetectedObject :  IEquatable<DetectedObject>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DetectedObject" /> class.
         /// </summary>
-        /// <param name="ObjectClassName">Class of the object.  Example values are \&quot;person\&quot;, \&quot;car\&quot;, \&quot;dining table\&quot;, etc..</param>
-        /// <param name="Height">Height, in pixels, of the object.</param>
-        /// <param name="Width">Width, in pixels, of the object.</param>
-        /// <param name="Score">Confidence score of detected object; possible values are between 0.0 and 1.0; values closer to 1.0 are higher confidence.</param>
-        /// <param name="X">X location, in pixels, of the left side location of the object, with the right side being X + Width.</param>
-        /// <param name="Y">Y location, in pixels, of the top side location of the object, with the bottom side being Y + Height.</param>
-        public DetectedObject(string ObjectClassName = default(string), int? Height = default(int?), int? Width = default(int?), double? Score = default(double?), int? X = default(int?), int? Y = default(int?))
+        /// <param name="objectClassName">Class of the object.  Example values are \&quot;person\&quot;, \&quot;car\&quot;, \&quot;dining table\&quot;, etc..</param>
+        /// <param name="height">Height, in pixels, of the object.</param>
+        /// <param name="width">Width, in pixels, of the object.</param>
+        /// <param name="score">Confidence score of detected object; possible values are between 0.0 and 1.0; values closer to 1.0 are higher confidence.</param>
+        /// <param name="x">X location, in pixels, of the left side location of the object, with the right side being X + Width.</param>
+        /// <param name="y">Y location, in pixels, of the top side location of the object, with the bottom side being Y + Height.</param>
+        public DetectedObject(string objectClassName = default(string), int? height = default(int?), int? width = default(int?), double? score = default(double?), int? x = default(int?), int? y = default(int?))
         {
-            this.ObjectClassName = ObjectClassName;
-            this.Height = Height;
-            this.Width = Width;
-            this.Score = Score;
-            this.X = X;
-            this.Y = Y;
+            this.ObjectClassName = objectClassName;
+            this.Height = height;
+            this.Width = width;
+            this.Score = score;
+            this.X = x;
+            this.Y = y;
         }
         
         /// <summary>
@@ -113,7 +111,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -194,16 +192,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Y.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

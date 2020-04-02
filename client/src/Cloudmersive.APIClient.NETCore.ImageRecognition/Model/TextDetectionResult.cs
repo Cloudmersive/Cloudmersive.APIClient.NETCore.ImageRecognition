@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,19 +26,19 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// Result of an operation to detect text in a photo
     /// </summary>
     [DataContract]
-    public partial class TextDetectionResult :  IEquatable<TextDetectionResult>, IValidatableObject
+    public partial class TextDetectionResult :  IEquatable<TextDetectionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TextDetectionResult" /> class.
         /// </summary>
-        /// <param name="Successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="TextItems">Text items found in the input image.</param>
-        /// <param name="TextItemsCount">Count of text items found in the input image.</param>
-        public TextDetectionResult(bool? Successful = default(bool?), List<TextItem> TextItems = default(List<TextItem>), int? TextItemsCount = default(int?))
+        /// <param name="successful">True if the operation was successful, false otherwise.</param>
+        /// <param name="textItems">Text items found in the input image.</param>
+        /// <param name="textItemsCount">Count of text items found in the input image.</param>
+        public TextDetectionResult(bool? successful = default(bool?), List<TextItem> textItems = default(List<TextItem>), int? textItemsCount = default(int?))
         {
-            this.Successful = Successful;
-            this.TextItems = TextItems;
-            this.TextItemsCount = TextItemsCount;
+            this.Successful = successful;
+            this.TextItems = textItems;
+            this.TextItemsCount = textItemsCount;
         }
         
         /// <summary>
@@ -83,7 +81,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -143,16 +141,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.TextItemsCount.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

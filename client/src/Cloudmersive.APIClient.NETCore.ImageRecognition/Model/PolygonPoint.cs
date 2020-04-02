@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,17 +26,17 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// One point in a polygon
     /// </summary>
     [DataContract]
-    public partial class PolygonPoint :  IEquatable<PolygonPoint>, IValidatableObject
+    public partial class PolygonPoint :  IEquatable<PolygonPoint>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonPoint" /> class.
         /// </summary>
-        /// <param name="X">X location in pixels of this point in the polygon.</param>
-        /// <param name="Y">Y location in pixels of this point in the polygon.</param>
-        public PolygonPoint(double? X = default(double?), double? Y = default(double?))
+        /// <param name="x">X location in pixels of this point in the polygon.</param>
+        /// <param name="y">Y location in pixels of this point in the polygon.</param>
+        public PolygonPoint(double? x = default(double?), double? y = default(double?))
         {
-            this.X = X;
-            this.Y = Y;
+            this.X = x;
+            this.Y = y;
         }
         
         /// <summary>
@@ -73,7 +71,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -126,16 +124,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Y.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 

@@ -12,14 +12,12 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Client.SwaggerDateConverter;
 
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
@@ -28,21 +26,21 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
     /// A person identified in an image age classification operation
     /// </summary>
     [DataContract]
-    public partial class PersonWithAge :  IEquatable<PersonWithAge>, IValidatableObject
+    public partial class PersonWithAge :  IEquatable<PersonWithAge>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonWithAge" /> class.
         /// </summary>
-        /// <param name="FaceLocation">Location and other information about the person&#39;s face corresponding to this age classification.</param>
-        /// <param name="AgeClassificationConfidence">Confidence level of age classification; possible values are between 0.0 and 1.0; higher is better, with values &amp;gt; 0.50 being high confidence results.</param>
-        /// <param name="AgeClass">The person&#39;s age range classification result in years; possible values are \&quot;0-2\&quot;, \&quot;4-6\&quot;, \&quot;8-13\&quot;, \&quot;15-20\&quot;, \&quot;25-32\&quot;, \&quot;38-43\&quot;, \&quot;48-53\&quot;, \&quot;60+\&quot;.</param>
-        /// <param name="Age">Age.</param>
-        public PersonWithAge(Face FaceLocation = default(Face), double? AgeClassificationConfidence = default(double?), string AgeClass = default(string), double? Age = default(double?))
+        /// <param name="faceLocation">Location and other information about the person&#39;s face corresponding to this age classification.</param>
+        /// <param name="ageClassificationConfidence">Confidence level of age classification; possible values are between 0.0 and 1.0; higher is better, with values &amp;gt; 0.50 being high confidence results.</param>
+        /// <param name="ageClass">The person&#39;s age range classification result in years; possible values are \&quot;0-2\&quot;, \&quot;4-6\&quot;, \&quot;8-13\&quot;, \&quot;15-20\&quot;, \&quot;25-32\&quot;, \&quot;38-43\&quot;, \&quot;48-53\&quot;, \&quot;60+\&quot;.</param>
+        /// <param name="age">age.</param>
+        public PersonWithAge(Face faceLocation = default(Face), double? ageClassificationConfidence = default(double?), string ageClass = default(string), double? age = default(double?))
         {
-            this.FaceLocation = FaceLocation;
-            this.AgeClassificationConfidence = AgeClassificationConfidence;
-            this.AgeClass = AgeClass;
-            this.Age = Age;
+            this.FaceLocation = faceLocation;
+            this.AgeClassificationConfidence = ageClassificationConfidence;
+            this.AgeClass = ageClass;
+            this.Age = age;
         }
         
         /// <summary>
@@ -92,7 +90,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public virtual string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -159,16 +157,6 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
                     hashCode = hashCode * 59 + this.Age.GetHashCode();
                 return hashCode;
             }
-        }
-
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            yield break;
         }
     }
 
