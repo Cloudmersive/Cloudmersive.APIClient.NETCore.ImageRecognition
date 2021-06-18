@@ -19,7 +19,7 @@
 (Get-Content '.\client\src\Cloudmersive.APIClient.NETCore.ImageRecognition\Client\ApiClient.cs').replace('request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);', 'request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentLength, param.Value.ContentType);') | Set-Content '.\client\src\Cloudmersive.APIClient.NETCore.ImageRecognition\Client\ApiClient.cs'
 
 
-
+(Get-Content ./client/src/Cloudmersive.APIClient.NETCore.ImageRecognition/Cloudmersive.APIClient.NETCore.ImageRecognition.csproj).replace('</ItemGroup>', '</ItemGroup><Target Name="PostBuild" AfterTargets="PostBuildEvent">    <Exec Command="call powershell C:\CodeSigning\sign.ps1  $(TargetPath)" />  </Target>') | Set-Content ./client/src/Cloudmersive.APIClient.NETCore.ImageRecognition/Cloudmersive.APIClient.NETCore.ImageRecognition.csproj
 
 & dotnet build ./client/src/Cloudmersive.APIClient.NETCore.ImageRecognition/Cloudmersive.APIClient.NETCore.ImageRecognition.csproj -c Release
 & dotnet pack ./client/src/Cloudmersive.APIClient.NETCore.ImageRecognition/Cloudmersive.APIClient.NETCore.ImageRecognition.csproj -c Release
