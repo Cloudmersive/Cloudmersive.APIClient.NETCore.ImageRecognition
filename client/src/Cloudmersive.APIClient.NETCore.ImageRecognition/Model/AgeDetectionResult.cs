@@ -23,7 +23,7 @@ using SwaggerDateConverter = Cloudmersive.APIClient.NETCore.ImageRecognition.Cli
 namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
 {
     /// <summary>
-    /// Result from classifying the Age of people in an image
+    /// Result from classifying the Age and Gender of people in an image
     /// </summary>
     [DataContract]
     public partial class AgeDetectionResult :  IEquatable<AgeDetectionResult>
@@ -32,7 +32,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         /// Initializes a new instance of the <see cref="AgeDetectionResult" /> class.
         /// </summary>
         /// <param name="successful">True if the operation was successful, false otherwise.</param>
-        /// <param name="peopleWithAge">People in the image annotated with age information.</param>
+        /// <param name="peopleWithAge">People in the image annotated with age and gender information.</param>
         /// <param name="peopleIdentified">Number of people identified in the image with an age.</param>
         public AgeDetectionResult(bool? successful = default(bool?), List<PersonWithAge> peopleWithAge = default(List<PersonWithAge>), int? peopleIdentified = default(int?))
         {
@@ -49,9 +49,9 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Model
         public bool? Successful { get; set; }
 
         /// <summary>
-        /// People in the image annotated with age information
+        /// People in the image annotated with age and gender information
         /// </summary>
-        /// <value>People in the image annotated with age information</value>
+        /// <value>People in the image annotated with age and gender information</value>
         [DataMember(Name="PeopleWithAge", EmitDefaultValue=false)]
         public List<PersonWithAge> PeopleWithAge { get; set; }
 
