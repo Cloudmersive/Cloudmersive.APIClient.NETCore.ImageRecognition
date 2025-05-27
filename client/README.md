@@ -5,7 +5,7 @@ Image Recognition and Processing APIs let you use Machine Learning to recognize 
 This C# SDK is for the [Cloudmersive Image Recognition and Processing API](https://www.cloudmersive.com/image-recognition-and-processing-api):
 
 - API version: v1
-- SDK version: 2.0.7
+- SDK version: 2.0.8
 - Build package: io.swagger.codegen.languages.CSharpClientCodegen
 
 <a name="frameworks-supported"></a>
@@ -120,6 +120,7 @@ Class | Method | HTTP request | Description
 *InfoApi* | [**InfoGetDominantColor**](docs/InfoApi.md#infogetdominantcolor) | **POST** /image/get-info/dominant-color | Returns the dominant colors of the image
 *InfoApi* | [**InfoGetMetadata**](docs/InfoApi.md#infogetmetadata) | **POST** /image/get-info/metadata | Returns the image metadata including EXIF and resolution
 *NsfwApi* | [**NsfwClassify**](docs/NsfwApi.md#nsfwclassify) | **POST** /image/nsfw/classify | Not safe for work (NSFW) content classification for Images
+*NsfwApi* | [**NsfwClassifyDocument**](docs/NsfwApi.md#nsfwclassifydocument) | **POST** /image/nsfw/classify/document | Not safe for work (NSFW) content classification for Documents
 *NsfwApi* | [**NsfwClassifyVideo**](docs/NsfwApi.md#nsfwclassifyvideo) | **POST** /image/nsfw/classify/video | Not safe for work (NSFW) content classification for Video
 *RecognizeApi* | [**RecognizeDescribe**](docs/RecognizeApi.md#recognizedescribe) | **POST** /image/recognize/describe | Describe an image in natural language
 *RecognizeApi* | [**RecognizeDetectAndUnskewDocument**](docs/RecognizeApi.md#recognizedetectandunskewdocument) | **POST** /image/recognize/detect-document/unskew | Detect and unskew a photo of a document
