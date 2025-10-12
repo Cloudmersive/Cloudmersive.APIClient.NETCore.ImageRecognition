@@ -1,7 +1,7 @@
 /* 
  * imageapi
  *
- * Image Recognition and Processing APIs let you use Machine Learning to recognize and process images, and also perform useful image modification operations.
+ * Image Recognition and Processing APIs let you use Artificial Intelligence and Machine Learning to recognize and process images, and also perform useful image modification operations.
  *
  * OpenAPI spec version: v1
  * 
@@ -29,7 +29,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "2.1.0";
+        public const string Version = "2.2.0";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -110,8 +110,8 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Client
         /// </summary>
         public Configuration()
         {
-            UserAgent = "Swagger-Codegen/2.1.0/csharp";
-            BasePath = "http://localhost";
+            UserAgent = "Swagger-Codegen/2.2.0/csharp";
+            BasePath = "https://api.cloudmersive.com";
             DefaultHeader = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
@@ -127,7 +127,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Client
             IDictionary<string, string> defaultHeader,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "http://localhost") : this()
+            string basePath = "https://api.cloudmersive.com") : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");
@@ -183,7 +183,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Client
             string tempFolderPath = null,
             string dateTimeFormat = null,
             int timeout = 100000,
-            string userAgent = "Swagger-Codegen/2.1.0/csharp"
+            string userAgent = "Swagger-Codegen/2.2.0/csharp"
             // ReSharper restore UnusedParameter.Local
             )
         {
@@ -416,7 +416,7 @@ namespace Cloudmersive.APIClient.NETCore.ImageRecognition.Client
             String report = "C# SDK (Cloudmersive.APIClient.NETCore.ImageRecognition) Debug Report:\n";
             report += "    OS: " + System.Runtime.InteropServices.RuntimeInformation.OSDescription + "\n";
             report += "    Version of the API: v1\n";
-            report += "    SDK Package Version: 2.1.0\n";
+            report += "    SDK Package Version: 2.2.0\n";
 
             return report;
         }

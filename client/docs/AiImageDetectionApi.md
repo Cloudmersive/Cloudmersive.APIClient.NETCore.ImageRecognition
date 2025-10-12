@@ -1,19 +1,19 @@
-# Cloudmersive.APIClient.NETCore.ImageRecognition.Api.TextGenerationApi
+# Cloudmersive.APIClient.NETCore.ImageRecognition.Api.AiImageDetectionApi
 
 All URIs are relative to *https://api.cloudmersive.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TextGenerationCreateHandwritingPng**](TextGenerationApi.md#textgenerationcreatehandwritingpng) | **POST** /image/text/create/handwriting/png | Create an image of handwriting in PNG format
+[**AiImageDetectionDetectFile**](AiImageDetectionApi.md#aiimagedetectiondetectfile) | **POST** /image/ai-detection/file | Detect if an input image was generated using AI
 
 
-<a name="textgenerationcreatehandwritingpng"></a>
-# **TextGenerationCreateHandwritingPng**
-> Object TextGenerationCreateHandwritingPng (CreateHandwritingRequest request)
+<a name="aiimagedetectiondetectfile"></a>
+# **AiImageDetectionDetectFile**
+> ImageAiDetectionResult AiImageDetectionDetectFile (System.IO.Stream imageFile)
 
-Create an image of handwriting in PNG format
+Detect if an input image was generated using AI
 
-Uses Deep Learning to generate realistic handwriting and returns the result as a PNG image
+Detects if the input image was generated using AI tools.
 
 ### Example
 ```csharp
@@ -25,7 +25,7 @@ using Cloudmersive.APIClient.NETCore.ImageRecognition.Model;
 
 namespace Example
 {
-    public class TextGenerationCreateHandwritingPngExample
+    public class AiImageDetectionDetectFileExample
     {
         public void main()
         {
@@ -34,18 +34,18 @@ namespace Example
             // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
             // Configuration.Default.AddApiKeyPrefix("Apikey", "Bearer");
 
-            var apiInstance = new TextGenerationApi();
-            var request = new CreateHandwritingRequest(); // CreateHandwritingRequest | Draw text parameters
+            var apiInstance = new AiImageDetectionApi();
+            var imageFile = new System.IO.Stream(); // System.IO.Stream | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
 
             try
             {
-                // Create an image of handwriting in PNG format
-                Object result = apiInstance.TextGenerationCreateHandwritingPng(request);
+                // Detect if an input image was generated using AI
+                ImageAiDetectionResult result = apiInstance.AiImageDetectionDetectFile(imageFile);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling TextGenerationApi.TextGenerationCreateHandwritingPng: " + e.Message );
+                Debug.Print("Exception when calling AiImageDetectionApi.AiImageDetectionDetectFile: " + e.Message );
             }
         }
     }
@@ -56,11 +56,11 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **request** | [**CreateHandwritingRequest**](CreateHandwritingRequest.md)| Draw text parameters | 
+ **imageFile** | **System.IO.Stream**| Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported. | 
 
 ### Return type
 
-**Object**
+[**ImageAiDetectionResult**](ImageAiDetectionResult.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/xml, text/xml, application/x-www-form-urlencoded
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/octet-stream
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
